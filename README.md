@@ -12,8 +12,3 @@ Plasmando dinamicamente il comportamento di una sfera, il sistema traduce il flu
 
 ---
 
-## Tecnologie Utilizzate
-* **React / TypeScript** (Struttura dell'applicazione)
-* **p5.js** (Gestione della grafica generativa 3D e delle orbite)
-* **Node.js / Vite** (Ambiente di sviluppo e build)
-* **Google Gemini API** (Integrazione dell'Intelligenza Artificiale)
