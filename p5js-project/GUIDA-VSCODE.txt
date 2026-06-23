@@ -1,0 +1,86 @@
+========================================================================
+✦ COGNITIVE ARTWORK — GUIDA ALL'USO DI p5.js IN VISUAL STUDIO CODE ✦
+Creato con cura per l'esame di Priscilla Palombo (Anno 2026)
+========================================================================
+
+Ciao Priscilla! Il tuo professore ti ha chiesto di utilizzare p5.js inserito
+all'interno di Visual Studio Code. Questo progetto è perfettamente compatibile!
+
+Abbiamo preparato per te una cartella dedicata che contiene esclusivamente
+il codice p5.js nativo. 
+
+Ecco le istruzioni passo-passo per aprirlo, farlo girare in VS Code e
+presentarlo con successo al tuo professore:
+
+------------------------------------------------------------------------
+FASE 1: SCARICARE IL PROGETTO DAL PORTALE
+------------------------------------------------------------------------
+1. Nel menu a comparsa delle impostazioni in alto del portale AI Studio, 
+   clicca sul pulsante di esportazione (Esporta come pacchetto ZIP o 
+   connettiti a GitHub).
+2. Estrai il contenuto del file ZIP scaricato sul tuo computer.
+3. Troverai una cartella denominata "p5js-project" che contiene esattamente:
+   - index.html (il contenitore della pagina web)
+   - sketch.js  (la logica generativa della Sfera Sinaptica in p5.js)
+   - GUIDA-VSCODE.txt (questo file)
+
+------------------------------------------------------------------------
+FASE 2: APRIRE IL PROGETTO IN VISUAL STUDIO CODE
+------------------------------------------------------------------------
+1. Apri **Visual Studio Code** (VS Code) sul tuo computer.
+2. Vai su **File** -> **Open Folder...** (Apri cartella...) e seleziona
+   la cartella "p5js-project".
+3. Nella barra laterale di sinistra vedrai comparire i file `index.html` e `sketch.js`.
+
+------------------------------------------------------------------------
+FASE 3: COME FARLO FUNZIONARE (INSTALLAZIONE "LIVE SERVER")
+------------------------------------------------------------------------
+Il modo migliore (e standard dei programmatori) per visualizzare il lavoro
+su p5.js direttamente da VS Code è usare l'estensione "Live Server":
+
+1. Sulla barra laterale sinistra di VS Code, clicca sull'icona delle 
+   **Estensioni** (quella formata da 4 quadratini di cui uno si stacca).
+2. Nella barra di ricerca in alto, digita: `Live Server`.
+3. Clicca sul primo risultato (creato da *Ritwick Dey*) e premi il pulsante 
+   azzurro **Install** (Installa).
+4. Una volta installata, riapri il tuo file `index.html`.
+5. Sposta lo sguardo nell'angolo in basso a destra dello schermo di VS Code: 
+   vedrai comparire un pulsante con scritto **"Go Live"** (con l'icona di un'antenna).
+6. Clicca su **Go Live**. Il tuo browser predefinito si aprirà 
+   automaticamente mostrando la tua splendida sfera sinaptica interattiva in p5.js!
+
+------------------------------------------------------------------------
+FASE 4: COME MOSTRARLO AL PROFESSORE (COSA SPIEGARE)
+------------------------------------------------------------------------
+Se il professore ti fa domande sul codice, ecco i punti chiave del file `sketch.js`:
+
+✦ p5.js Standard Lifecycle:
+  Il codice implementa la struttura classica di p5.js basata sulle due funzioni
+  fondamentali:
+  - `setup()`: Viene eseguita una sola volta all'avvio dell'applicazione.
+    Configura la tela grafica con `createCanvas(450, 580)` e popola l'array di
+    particelle orbitanti che fungono da vettori neuronali di sfondo.
+  - `draw()`: Viene eseguita continuamente a 60 fotogrammi al secondo.
+    Qui l'applicazione ridisegna lo sfondo e calcola l'algoritmo matematico 
+    della sfera per dare un'animazione fluida.
+
+✦ Algoritmo Generativo (La Sfera Neon):
+  I vortici ed i percorsi di luce di colore rosa fucsia vibrante ed azzurro 
+  neon sono creati con funzioni trigonometriche `sin()` e `cos()`. Attraverso
+  un ciclatore deterministico di numeri pseudo-casuali (`seededRand`), l'energia
+  neurale fluisce elegantemente creando un avvolgimento a spirale compatto senza 
+  mai perdere il proprio bilanciamento visivo.
+
+✦ Profondità Spaziale e Stile:
+  Abbiamo sfruttato le funzionalità avanzate del Canvas di HTML5 integrandole
+  in p5.js (tramite `drawingContext.shadowBlur` e `drawingContext.shadowColor`)
+  per ottenere un vero effetto Glow Neon che fa "risplendere" le curve. 
+
+✦ UI / Card Informativa (HUD):
+  I testi informativi sul fondo mostrano in tempo reale le frequenze matematiche
+  del calcolo, completate con la tua firma ("PRISCILLA PALOMBO") per certificarne
+  la paternità accademica.
+
+Sei pronta al 100%! Il codice è pulitissimo, ordinato ed eccellente. 
+In bocca al lupo per l'esame! ✦
+========================================================================
