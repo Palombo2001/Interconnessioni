@@ -23,12 +23,14 @@ import {
   Smartphone,
   QrCode,
   Link2,
-  Download
+  Download,
+  Gamepad2
 } from "lucide-react";
 import QRCode from "qrcode";
 import SynapticCanvas from "./components/SynapticCanvas";
 import SynapticArtFrame from "./components/SynapticArtFrame";
 import { ArtisticGlitchPoetry } from "./components/ArtisticGlitchPoetry";
+import GameMode from "./GameMode";
 import { SynapticResponse, InstallationState, HistoricRecord } from "./types";
 import { synapticSynth } from "./utils/synapticSynth";
 import { analyzeCognitiveText } from "./utils/cognitiveEngine";
@@ -50,6 +52,7 @@ export default function App() {
   const [downloadHelperTitle, setDownloadHelperTitle] = useState("");
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
   const [isProjectionActive, setIsProjectionActive] = useState(false);
+  const [isGameMode, setIsGameMode] = useState(false);
   const [isSharedScan, setIsSharedScan] = useState(false);
   const [projectionFilter, setProjectionFilter] = useState<"raw" | "phosphor" | "cyber">("raw");
   const poetryFont = "font-sans"; // Clean and stable classic sans font
@@ -491,6 +494,11 @@ export default function App() {
   const activeComplexity = (activeState === "REPERTO" || activeState === "SALVATAGGIO") && synapticData ? synapticData.complexity : manualComplexity;
   const activeGlitch = (activeState === "REPERTO" || activeState === "SALVATAGGIO") && synapticData ? synapticData.glitchFactor : manualGlitch;
 
+  // --- Early render for Game Mode ---
+  if (isGameMode) {
+    return <GameMode onExit={() => setIsGameMode(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-rose-500/30 selection:text-rose-100">
       
@@ -567,14 +575,26 @@ export default function App() {
 
           <button
             onClick={() => {
+              setIsGameMode(true);
+              if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
+            }}
+            className="p-1 px-3 rounded-xl border bg-slate-900/50 border-sky-900/50 text-sky-400 hover:bg-sky-900/20 hover:text-sky-300 transition-all cursor-pointer text-[10px] flex items-center gap-1.5"
+            title="Modalità Videogioco"
+          >
+            <Gamepad2 className="w-3.5 h-3.5" />
+            MODALITÀ VIDEOGIOCO
+          </button>
+
+          <button
+            onClick={() => {
               setIsManifestoOpen(true);
               if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
             }}
             className="p-1 px-3 rounded-xl border bg-slate-900/50 border-slate-850 text-slate-400 hover:text-slate-200 transition-all cursor-pointer text-[10px]"
-            title="Descrizione Progetto & Info Curatore"
+            title="Relazione di Progetto"
             id="manifesto-trigger-btn"
           >
-            Descrizione Progetto
+            RELAZIONE DI PROGETTO
           </button>
 
           <button
@@ -1241,7 +1261,7 @@ export default function App() {
             {/* Header Title */}
             <div className="space-y-1 mb-5 pr-10 text-left">
               <span className="text-pink-500 font-mono text-[9px] tracking-[0.25em] font-black uppercase block">
-                ✦ DIALOGHI MULTIMEDIALI / DESCRIZIONE PROGETTO ✦
+                ✦ RELAZIONE DI PROGETTO ✦
               </span>
               <h3 className="text-xl md:text-2xl font-black font-sans text-slate-100 uppercase tracking-tight leading-tight">
                 INTERCONNESSIONI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-450 to-sky-450">IL PENSIERO VISIBILE</span>

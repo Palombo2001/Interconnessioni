@@ -1,14 +1,20 @@
-# Interconnessioni AI
-**Installazione Cognitivo-Geometrica (2026)**
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-## Descrizione del Progetto
-**Interconnessioni** è un progetto che nasce dall'intenzione di rendere visibile il processo invisibile del pensiero e della produzione del linguaggio. 
+# Run and deploy your AI Studio app
 
-Quando pensiamo o scriviamo, ciò che emerge è solo il risultato finale, mentre il processo mentale rimane normalmente non visibile. Qui, il testo inserito viene interpretato lungo un asse simbolico tra polarità:
-* **Alpha (Intuitiva/Associativa)**
-* **Beta (Analitica/Strutturata)**
+This contains everything you need to run your app locally.
 
-Plasmando dinamicamente il comportamento di una sfera, il sistema traduce il flusso di pensiero in geometrie visive e interattive in tempo reale.
+View your app in AI Studio: https://ai.studio/apps/ef2ad852-5c0c-49ed-b8f8-fa94c28a9028
 
----
+## Run Locally
 
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
