@@ -5,6 +5,7 @@ import { synapticSynth } from "./utils/synapticSynth";
 
 interface GameModeProps {
   onExit: () => void;
+  isMuted: boolean;
 }
 
 const LEVELS = [
@@ -15,7 +16,7 @@ const LEVELS = [
   { word: "SINESTESIA", targetAlpha: 0.7, targetBeta: 0.7, targetComplexity: 2.0, hint: "Equilibrio caotico tra i due emisferi" }
 ];
 
-export default function GameMode({ onExit }: GameModeProps) {
+export default function GameMode({ onExit, isMuted }: GameModeProps) {
   const [levelIndex, setLevelIndex] = useState(0);
   const [gameState, setGameState] = useState<"MENU" | "PLAYING" | "WON" | "GAMEOVER" | "LEVEL_TRANSITION">("MENU");
   const [score, setScore] = useState(0);
@@ -35,7 +36,7 @@ export default function GameMode({ onExit }: GameModeProps) {
         setTimeLeft((prev) => {
           if (prev <= 1) {
             setGameState("GAMEOVER");
-            synapticSynth.triggerSynapticBeep(150, 1.0, 0.5);
+            if (!isMuted) synapticSynth.triggerSynapticBeep(150, 1.0, 0.5);
             return 0;
           }
           return prev - 1;
@@ -63,8 +64,10 @@ export default function GameMode({ onExit }: GameModeProps) {
   }, [activeAlpha, activeBeta, activeComplexity, gameState, currentLevel]);
 
   const handleLevelComplete = () => {
-    synapticSynth.triggerSynapticBeep(880, 0.2, 0.5);
-    setTimeout(() => synapticSynth.triggerSynapticBeep(1200, 0.4, 0.5), 200);
+    if (!isMuted) {
+      synapticSynth.triggerSynapticBeep(880, 0.2, 0.5);
+      setTimeout(() => synapticSynth.triggerSynapticBeep(1200, 0.4, 0.5), 200);
+    }
     
     setScore(s => s + timeLeft * 10 + 1000);
     
@@ -91,8 +94,20 @@ export default function GameMode({ onExit }: GameModeProps) {
     setActiveBeta(0.5);
     setActiveComplexity(1.0);
     setGameState("PLAYING");
-    synapticSynth.triggerSynapticBeep(440, 0.5, 0.5);
+    if (!isMuted) synapticSynth.triggerSynapticBeep(440, 0.5, 0.5);
   };
+
+  useEffect(() => {
+    if (gameState === "PLAYING" && !isMuted) {
+      synapticSynth.updateAmbientEngine(activeAlpha, activeBeta, activeComplexity, isMuted);
+    } else {
+      synapticSynth.stopAmbientEngine();
+    }
+  }, [gameState, activeAlpha, activeBeta, activeComplexity, isMuted]);
+
+  useEffect(() => {
+    return () => synapticSynth.stopAmbientEngine();
+  }, []);
 
   return (
     <div className="h-screen w-screen bg-[#020204] text-slate-300 font-sans selection:bg-pink-500/30 flex flex-col overflow-hidden fixed inset-0 z-[200]">

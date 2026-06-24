@@ -496,7 +496,7 @@ export default function App() {
 
   // --- Early render for Game Mode ---
   if (isGameMode) {
-    return <GameMode onExit={() => setIsGameMode(false)} />;
+    return <GameMode onExit={() => setIsGameMode(false)} isMuted={isMuted} />;
   }
 
   return (
@@ -579,10 +579,10 @@ export default function App() {
               if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
             }}
             className="p-1 px-3 rounded-xl border bg-slate-900/50 border-slate-850 text-slate-300 hover:text-slate-100 transition-all cursor-pointer text-xs"
-            title="Relazione di Progetto"
+            title="Relazione del Progetto"
             id="manifesto-trigger-btn"
           >
-            RELAZIONE DI PROGETTO
+            RELAZIONE DEL PROGETTO
           </button>
 
           <button
@@ -1261,7 +1261,7 @@ export default function App() {
             {/* Header Title */}
             <div className="space-y-1 mb-5 pr-10 text-left">
               <span className="text-pink-500 font-mono text-xs tracking-[0.25em] font-black uppercase block">
-                ✦ RELAZIONE DI PROGETTO ✦
+                ✦ RELAZIONE DEL PROGETTO ✦
               </span>
               <h3 className="text-xl md:text-2xl font-black font-sans text-slate-100 uppercase tracking-tight leading-tight">
                 INTERCONNESSIONI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-450 to-sky-450">IL PENSIERO VISIBILE</span>
@@ -1310,17 +1310,10 @@ export default function App() {
                 </p>
               </section>
 
-              <section className="space-y-2 border-b border-slate-900 pb-4">
-                <span className="text-sky-400 font-bold block">5. L'ELEMENTO EFFIMERO NELLA NET ART:</span>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  Una delle cifre stilistiche cruciali dell'installazione risiede nel suo dualismo ontologico. L'interconnessione cellulare tramite codice QR è intrinsecamente <span className="text-amber-300 font-semibold">effimera</span>: svanisce dopo 60 secondi dall'emissione per manifestare lo scorrere del tempo digitale. Tuttavia, l'utente può decidere di congelarla generando l'Archiviazione d'Arte Permanente nel blocco di conservazione del report, unendo così la transitorietà cibernetica alla memoria fisica.
-                </p>
-              </section>
-
               <section className="space-y-2 pb-2">
-                <span className="text-purple-400 font-bold block">6. STACK TECNOLOGICO E CODICE SORGENTE:</span>
+                <span className="text-sky-400 font-bold block">5. IL CODICE QR</span>
                 <p className="text-slate-400 text-[11px] leading-relaxed">
-                  L'opera fonde i paradigmi storici della Net Art con le più moderne intelligenze generative. Si appoggia al server-side parser <strong className="text-slate-300">Google Gemini API</strong> per l'analisi affettiva qualitativa, integrato con l'algoritmo di rendering cinetico <strong className="text-slate-300 font-semibold">p5.js (3D coordinate calculation canvas)</strong>, web synth oscillanti <strong className="text-slate-300">Web Audio API</strong> ed un layout interattivo responsive in <strong className="text-slate-300">React + Tailwind CSS</strong>.
+                  L'interconnessione cellulare tramite codice QR è intrinsecamente effimera: svanisce dopo 60 secondi dall'emissione per manifestare lo scorrere del tempo digitale. Tuttavia, l'utente può decidere di congelarla generando l'Archiviazione d'Arte Permanente nel blocco di conservazione del report, unendo così la transitorietà cibernetica alla memoria fisica.
                 </p>
               </section>
 
