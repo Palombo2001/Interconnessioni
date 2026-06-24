@@ -8,7 +8,7 @@
 
 L'opera esplora il pensiero lungo un asse simbolico tra polarità **Alpha** (intuitiva/associativa) e **Beta** (analitica/strutturata), plasmando dinamicamente il comportamento di una sfera. 
 
-Include inoltre una **Modalità Videogioco (Neural Sync)**, introdotta come metafora dello sforzo comunicativo: la meccanica di allineamento degli slider per sintonizzarsi su un pensiero target simula la difficoltà e l'empatia richieste nella vita reale per comprendere i pensieri altrui.
+Include inoltre una **Modalità Videogioco, introdotta come metafora dello sforzo comunicativo: la meccanica di allineamento degli slider per sintonizzarsi su un pensiero target simula la difficoltà e l'empatia richieste nella vita reale per comprendere i pensieri altrui.
 
 
 
@@ -21,4 +21,4 @@ Include inoltre una **Modalità Videogioco (Neural Sync)**, introdotta come meta
 
 ## La Natura Effimera della Net Art
 
-L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere  del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
+L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere inesorabile del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
