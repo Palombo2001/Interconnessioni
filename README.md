@@ -10,27 +10,7 @@ L'opera esplora il pensiero lungo un asse simbolico tra polarità **Alpha** (int
 
 Include inoltre una **Modalità Videogioco (Neural Sync)**, introdotta come metafora dello sforzo comunicativo: la meccanica di allineamento degli slider per sintonizzarsi su un pensiero target simula la difficoltà e l'empatia richieste nella vita reale per comprendere i pensieri altrui.
 
-## Stack Tecnologico
 
-L'opera fonde i paradigmi storici della Net Art con le intelligenze generative moderne:
-- **Frontend**: React + Vite + Tailwind CSS per l'interfaccia.
-- **Intelligenza Artificiale**: Google Gemini API per l'analisi affettiva qualitativa e l'interpretazione del testo.
-- **Rendering Cinetico**: p5.js per il rendering della scultura 3D interattiva.
-- **Sound Design**: Web Audio API per la generazione sintetica di suoni e frequenze.
-
-## Setup e Installazione
-
-1. Assicurati di avere Node.js installato.
-2. Installa le dipendenze:
-   ```bash
-   npm install
-   ```
-3. Configura le variabili d'ambiente in AI Studio (Secrets) o crea un file `.env` locale:
-   - Inserisci la tua chiave API di Gemini sotto il nome `GEMINI_API_KEY`.
-4. Avvia il server di sviluppo:
-   ```bash
-   npm run dev
-   ```
 
 ## Funzionalità Principali
 
@@ -41,4 +21,4 @@ L'opera fonde i paradigmi storici della Net Art con le intelligenze generative m
 
 ## La Natura Effimera della Net Art
 
-L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere inesorabile del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
+L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere  del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
