@@ -1,20 +1,44 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# INTERCONNESSIONI
 
-# Run and deploy your AI Studio app
+**Progetto di ricerca artistica di Priscilla Palombo • Accademia di Belle Arti**
 
-This contains everything you need to run your app locally.
+*Interconnessioni* è un'installazione web interattiva che esplora il dualismo tra il processo invisibile del pensiero e la produzione del linguaggio. Attraverso un'interfaccia cibernetica, l'opera traduce testi in input in sculture cinetiche generate algoritmicamente e soundscapes generativi.
 
-View your app in AI Studio: https://ai.studio/apps/ef2ad852-5c0c-49ed-b8f8-fa94c28a9028
+## Concetto
 
-## Run Locally
+L'opera esplora il pensiero lungo un asse simbolico tra polarità **Alpha** (intuitiva/associativa) e **Beta** (analitica/strutturata), plasmando dinamicamente il comportamento di una sfera. 
 
-**Prerequisites:**  Node.js
+Include inoltre una **Modalità Videogioco (Neural Sync)**, introdotta come metafora dello sforzo comunicativo: la meccanica di allineamento degli slider per sintonizzarsi su un pensiero target simula la difficoltà e l'empatia richieste nella vita reale per comprendere i pensieri altrui.
 
+## Stack Tecnologico
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+L'opera fonde i paradigmi storici della Net Art con le intelligenze generative moderne:
+- **Frontend**: React + Vite + Tailwind CSS per l'interfaccia.
+- **Intelligenza Artificiale**: Google Gemini API per l'analisi affettiva qualitativa e l'interpretazione del testo.
+- **Rendering Cinetico**: p5.js per il rendering della scultura 3D interattiva.
+- **Sound Design**: Web Audio API per la generazione sintetica di suoni e frequenze.
+
+## Setup e Installazione
+
+1. Assicurati di avere Node.js installato.
+2. Installa le dipendenze:
+   ```bash
+   npm install
+   ```
+3. Configura le variabili d'ambiente in AI Studio (Secrets) o crea un file `.env` locale:
+   - Inserisci la tua chiave API di Gemini sotto il nome `GEMINI_API_KEY`.
+4. Avvia il server di sviluppo:
+   ```bash
+   npm run dev
+   ```
+
+## Funzionalità Principali
+
+- **Analisi Testuale AI**: Inserisci un concetto e osserva come l'intelligenza artificiale ne interpreta il peso analitico e intuitivo.
+- **Scultura Cinetica in Tempo Reale**: Una sfera generata tramite algoritmi in p5.js che reagisce visivamente ai parametri Alpha, Beta e Complessità.
+- **Modalità Videogioco (Neural Sync)**: Trova la giusta sintonia psico-geometrica modificando gli slider per raggiungere il 90% di risonanza con un concetto segreto, svelato da un indizio.
+- **Archiviazione (Reperto)**: Salva la configurazione attuale dell'opera come immagine ad altissima risoluzione o condividila tramite un QR Code.
+
+## La Natura Effimera della Net Art
+
+L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere inesorabile del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
