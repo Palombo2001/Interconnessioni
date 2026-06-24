@@ -100,11 +100,11 @@ export default function GameMode({ onExit }: GameModeProps) {
       <header className="p-4 border-b border-slate-900 flex justify-between items-center bg-slate-950/50 shrink-0">
         <button 
           onClick={onExit}
-          className="flex items-center gap-2 text-xs font-mono text-slate-500 hover:text-sky-400 transition-colors uppercase cursor-pointer"
+          className="flex items-center gap-2 text-sm font-mono text-slate-300 hover:text-sky-400 transition-colors uppercase cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" /> Torna all'Installazione
         </button>
-        <div className="flex gap-6 font-mono text-xs font-bold tracking-widest">
+        <div className="flex gap-6 font-mono text-sm font-bold tracking-widest">
           <span className="text-sky-400">SCORE: {score}</span>
           {(gameState === "PLAYING" || gameState === "LEVEL_TRANSITION") && (
             <span className={timeLeft < 15 ? "text-rose-500 animate-pulse" : "text-emerald-400"}>
@@ -123,10 +123,10 @@ export default function GameMode({ onExit }: GameModeProps) {
                 <h1 className="text-3xl font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-pink-500">
                   Neural Sync
                 </h1>
-                <p className="text-xs text-slate-400 font-mono leading-relaxed mb-4">
+                <p className="text-sm text-slate-300 font-mono leading-relaxed mb-4">
                   Decodifica le frequenze cerebrali. Sintonizza i lobi Alpha e Beta per stabilizzare il pensiero anomalo prima che collassi.
                 </p>
-                <div className="bg-slate-900/80 p-4 rounded-xl text-[11px] text-slate-300 font-mono mt-4 border border-slate-700 leading-relaxed space-y-2 text-left">
+                <div className="bg-slate-900/80 p-4 rounded-xl text-sm text-slate-200 font-mono mt-4 border border-slate-700 leading-relaxed space-y-2 text-left">
                   <span className="text-sky-400 font-bold block mb-1">✦ OBIETTIVO DEL GIOCO ✦</span>
                   <p>Il sistema ti fornirà una <strong>parola chiave</strong> e un indizio. Il tuo scopo è capire quale combinazione di frequenze cerebrali corrisponde a quel concetto.</p>
                   <ul className="list-disc list-inside space-y-1 ml-1 text-slate-400">
@@ -148,9 +148,9 @@ export default function GameMode({ onExit }: GameModeProps) {
           {(gameState === "PLAYING" || gameState === "LEVEL_TRANSITION") && (
             <div className="flex flex-col gap-6">
               <div className="p-4 bg-slate-900/50 border border-slate-800 rounded-xl space-y-2">
-                <span className="text-[10px] text-slate-500 font-mono uppercase tracking-widest">Pensiero Target</span>
+                <span className="text-xs text-slate-400 font-mono uppercase tracking-widest">Pensiero Target</span>
                 <h2 className="text-2xl font-black text-white tracking-widest">{currentLevel.word}</h2>
-                <p className="text-[10px] text-sky-400 font-mono uppercase border-t border-slate-800 pt-2 mt-2">
+                <p className="text-xs text-sky-400 font-mono uppercase border-t border-slate-800 pt-2 mt-2">
                   HINT: {currentLevel.hint}
                 </p>
               </div>
@@ -201,13 +201,13 @@ export default function GameMode({ onExit }: GameModeProps) {
 
               <div className="mt-auto pt-6 border-t border-slate-900">
                 <div className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-mono text-slate-500 uppercase items-center">
+                  <div className="flex justify-between text-xs font-mono text-slate-400 uppercase items-center">
                     <span>Sincronizzazione</span>
                     <span className={resonance > 90 ? "text-emerald-400 font-bold" : ""}>
                       {resonance.toFixed(1)}%
                     </span>
                   </div>
-                  <div className="text-[8px] text-slate-600 mb-1 leading-tight">Muovi gli slider per raggiungere il 90%</div>
+                  <div className="text-xs text-slate-300 mb-1 leading-tight font-mono">Muovi gli slider per raggiungere il 90%</div>
                   <div className="h-2 bg-slate-900 rounded-full overflow-hidden">
                     <div 
                       className={`h-full transition-all duration-300 ${resonance > 90 ? 'bg-emerald-400 shadow-[0_0_10px_#34d399]' : 'bg-sky-500'}`}
@@ -272,7 +272,7 @@ export default function GameMode({ onExit }: GameModeProps) {
           {(gameState === "PLAYING" || gameState === "LEVEL_TRANSITION") && (
             <div className="absolute inset-0 pointer-events-none p-8 flex flex-col justify-between">
               <div className="flex justify-between items-start">
-                <div className="font-mono text-[10px] text-sky-500/50 uppercase tracking-widest">
+                <div className="font-mono text-xs text-sky-500/50 uppercase tracking-widest">
                   Analisi Vettoriale: {currentLevel.word}
                 </div>
                 <div className="font-mono text-xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">

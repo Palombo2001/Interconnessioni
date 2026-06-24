@@ -575,22 +575,10 @@ export default function App() {
 
           <button
             onClick={() => {
-              setIsGameMode(true);
-              if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
-            }}
-            className="p-1 px-3 rounded-xl border bg-slate-900/50 border-sky-900/50 text-sky-400 hover:bg-sky-900/20 hover:text-sky-300 transition-all cursor-pointer text-[10px] flex items-center gap-1.5"
-            title="Modalità Videogioco"
-          >
-            <Gamepad2 className="w-3.5 h-3.5" />
-            MODALITÀ VIDEOGIOCO
-          </button>
-
-          <button
-            onClick={() => {
               setIsManifestoOpen(true);
               if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
             }}
-            className="p-1 px-3 rounded-xl border bg-slate-900/50 border-slate-850 text-slate-400 hover:text-slate-200 transition-all cursor-pointer text-[10px]"
+            className="p-1 px-3 rounded-xl border bg-slate-900/50 border-slate-850 text-slate-300 hover:text-slate-100 transition-all cursor-pointer text-xs"
             title="Relazione di Progetto"
             id="manifesto-trigger-btn"
           >
@@ -628,11 +616,11 @@ export default function App() {
 
                     <div className="h-[1px] w-12 bg-slate-800" />
 
-                    <p className="text-xs font-semibold text-slate-200 leading-relaxed uppercase tracking-wider">
+                    <p className="text-sm font-semibold text-slate-200 leading-relaxed uppercase tracking-wider">
                       INTERCONNESSIONI è un progetto che nasce dall’intenzione di rendere visibile il processo invisibile del pensiero e della produzione del linguaggio.
                     </p>
 
-                    <p className="text-[11px] font-sans text-slate-400 leading-relaxed font-normal normal-case">
+                    <p className="text-xs font-sans text-slate-300 leading-relaxed font-normal normal-case">
                       Quando pensiamo o scriviamo, ciò che emerge è solo il risultato finale, mentre il processo mentale rimane normalmente non visibile. Qui, il testo inserito viene interpretato lungo un asse simbolico tra polarità <strong>Alpha</strong> (intuitiva/associativa) e <strong>Beta</strong> (analitica/strutturata), plasmando dinamicamente il comportamento di una sfera.
                     </p>
                   </div>
@@ -645,10 +633,22 @@ export default function App() {
                           synapticSynth.triggerSynapticBeep(330, 0.5, 0.5);
                         }
                       }}
-                      className="w-full px-8 py-3.5 rounded-xl bg-gradient-to-r from-pink-500 to-sky-400 text-slate-950 font-mono font-bold text-[10px] tracking-widest uppercase transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] cursor-pointer inline-flex items-center justify-center gap-2 shadow-md shadow-pink-500/5"
+                      className="w-full px-8 py-3.5 rounded-xl bg-gradient-to-r from-pink-500 to-sky-400 text-slate-950 font-mono font-bold text-xs tracking-widest uppercase transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.98] cursor-pointer inline-flex items-center justify-center gap-2 shadow-md shadow-pink-500/5"
                       id="enter-experience-btn"
                     >
                       <span>Avvia il Dialogo</span>
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        setIsGameMode(true);
+                        if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
+                      }}
+                      className="w-full px-8 py-3.5 rounded-xl border border-sky-900/50 bg-slate-900/30 text-sky-400 hover:bg-sky-900/20 hover:text-sky-300 transition-all cursor-pointer text-xs font-mono font-bold tracking-widest uppercase flex items-center justify-center gap-2"
+                      title="Modalità Videogioco"
+                    >
+                      <Gamepad2 className="w-4 h-4" />
+                      MODALITÀ VIDEOGIOCO
                     </button>
                   </div>
                 </div>
@@ -752,7 +752,7 @@ export default function App() {
                     {synapticData && (
                       <button
                         onClick={() => handleCopyLink(textInput, synapticData)}
-                        className="w-full bg-slate-900 hover:bg-slate-850 hover:text-slate-100 text-slate-300 py-3 rounded-xl text-[10px] font-bold tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer uppercase border border-slate-800"
+                        className="w-full bg-slate-900 hover:bg-slate-850 hover:text-slate-100 text-slate-300 py-3 rounded-xl text-xs font-bold tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer uppercase border border-slate-800"
                       >
                         <Link2 className="w-3.5 h-3.5 text-pink-500" />
                         {copiedLink ? "COPIATO CON SUCCESSO! ✓" : "COPIA LINK 🔗"}
@@ -761,7 +761,7 @@ export default function App() {
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         onClick={() => setActiveState("SALVATAGGIO")}
-                        className="w-full bg-gradient-to-r from-sky-400 via-rose-500 to-pink-500 hover:from-sky-500 hover:to-pink-600 text-slate-950 py-3 rounded-xl text-[9px] font-black tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer uppercase shadow-lg shadow-pink-500/10"
+                        className="w-full bg-gradient-to-r from-sky-400 via-rose-500 to-pink-500 hover:from-sky-500 hover:to-pink-600 text-slate-950 py-3 rounded-xl text-xs font-black tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer uppercase shadow-lg shadow-pink-500/10"
                         id="go-to-saving-page-btn"
                       >
                         <Share2 className="w-3.5 h-3.5 text-slate-950" />
@@ -769,7 +769,7 @@ export default function App() {
                       </button>
                       <button
                         onClick={handleReset}
-                        className="w-full bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 py-3 rounded-xl text-[9px] font-bold tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer uppercase"
+                        className="w-full bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-slate-100 py-3 rounded-xl text-xs font-bold tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer uppercase"
                       >
                         NUOVA OPERA
                       </button>
@@ -783,7 +783,7 @@ export default function App() {
                       <span className="text-xs tracking-wider text-slate-400 uppercase font-medium">
                         CONSOLLE HEMISPHERE
                       </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-950/60 border border-slate-800/60 text-slate-500 uppercase font-bold">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-950/60 border border-slate-800/60 text-slate-400 uppercase font-bold">
                         {activeState} ATTIVO
                       </span>
                     </div>
@@ -795,7 +795,7 @@ export default function App() {
                       <label htmlFor="synaptic-input" className="block text-xs font-mono text-slate-400 uppercase tracking-widest">
                         [ SCRIVI CIÒ CHE LA TUA MENTE TI SUGGERISCE ]
                       </label>
-                      <p className="text-[10px] font-mono text-slate-500 italic uppercase">
+                      <p className="text-xs font-mono text-slate-400 italic uppercase">
                         La sfera rimarrà perfetta e neutra durante la scrittura estemporanea. La sintesi estetica ed affettiva del tuo pensiero partirà ad invio completato.
                       </p>
                       <div className="relative">
@@ -805,7 +805,7 @@ export default function App() {
                           value={textInput}
                           onChange={handleInputChange}
                           placeholder="ES. ARTE, MATEMATICA, CAOS, SOGNO..."
-                          className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 rounded-2xl px-4 py-3.5 text-sm font-mono tracking-wide text-slate-100 placeholder-slate-600 focus:outline-none transition-all uppercase"
+                          className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 rounded-2xl pl-4 pr-14 py-3.5 text-sm font-mono tracking-wide text-slate-100 placeholder-slate-600 focus:outline-none transition-all uppercase"
                           disabled={isAnalyzing}
                         />
                         <button
@@ -817,7 +817,7 @@ export default function App() {
                           <Send className="w-4 h-4" />
                         </button>
                       </div>
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 px-1">
+                      <div className="flex items-center justify-between text-xs font-mono text-slate-500 px-1">
                         <span>MAX 75 CARATTERI: {textInput.length}/75</span>
                         <span>INVIO PER INFERENZA AI</span>
                       </div>
@@ -854,12 +854,12 @@ export default function App() {
                         OPERA ATTIVA
                       </div>
                       <div>
-                        <h4 className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">CONCETTO ANALIZZATO</h4>
+                        <h4 className="text-xs text-slate-400 uppercase font-bold tracking-wider">CONCETTO ANALIZZATO</h4>
                         <p className="text-sm font-semibold text-sky-400 uppercase tracking-wide font-mono">"{textInput}"</p>
                       </div>
                       {synapticData && (
                         <div className="pt-2 border-t border-[#1e1e2d]/60 space-y-1">
-                          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-widest block">RISPOSTA POETICA</span>
+                          <span className="text-xs text-slate-400 uppercase font-bold tracking-widest block">RISPOSTA POETICA</span>
                           <div className="py-1">
                             <ArtisticGlitchPoetry
                               text={synapticData.poeticText}
@@ -874,7 +874,7 @@ export default function App() {
                     {/* Reset dialogue */}
                     <button
                       onClick={handleReset}
-                      className="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 max-h-min text-slate-200 py-3.5 rounded-2xl font-mono text-xs font-bold tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg hover:shadow-slate-950 uppercase"
+                      className="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 max-h-min text-slate-100 py-3.5 rounded-2xl font-mono text-sm font-bold tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg hover:shadow-slate-950 uppercase"
                       id="reset-canvas-btn"
                     >
                       <RefreshCw className="w-4 h-4" />
@@ -885,7 +885,7 @@ export default function App() {
 
                 {/* Graphic tuning modifiers (Realtime manual testing when not loaded from AI response) */}
                 <div className="border-t border-slate-800/40 pt-5 space-y-4">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-slate-500 uppercase flex items-center gap-1.5">
+                  <span className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase flex items-center gap-1.5">
                     <Sliders className="w-3.5 h-3.5 text-pink-500" />
                     TARATURA PSICO-GEOMETRICA REALE
                   </span>
@@ -948,7 +948,7 @@ export default function App() {
                   )}
 
                   {activeState === "REPERTO" && (
-                    <div className="bg-slate-950/80 border border-slate-800/60 p-3 rounded-xl text-[10px] text-slate-400 font-mono tracking-wide uppercase leading-relaxed text-left">
+                    <div className="bg-slate-950/80 border border-slate-800/60 p-3 rounded-xl text-xs text-slate-300 font-mono tracking-wide uppercase leading-relaxed text-left">
                       <span className="text-pink-500 font-black block mb-0.5">✦ CALIBRAZIONE CONGELATA ✦</span>
                       Gli emisferi sono sintonizzati sui valori definitivi del report AI. Clicca <strong className="text-slate-100 uppercase">"Nuova Opera"</strong> per abilitare l'accordatura manuale.
                     </div>
@@ -956,7 +956,7 @@ export default function App() {
                 </div>
 
                 {/* Visual real-time metrics telemetry table */}
-                <div className="border-t border-slate-800/40 pt-5 space-y-3 font-mono text-[10px]">
+                <div className="border-t border-slate-800/40 pt-5 space-y-3 font-mono text-xs">
                   <span className="font-bold text-slate-500 block uppercase tracking-wider">INDICATORI DI COMPLESSITÀ COGNITIVA</span>
                   <div className="grid grid-cols-2 gap-3 bg-slate-950/40 p-3 rounded-xl border border-slate-900">
                     <div className="space-y-1 border-r border-slate-900 pr-2">
@@ -993,11 +993,11 @@ export default function App() {
                       <button
                         key={rec.id}
                         onClick={() => loadPastRecord(rec)}
-                        className="w-full p-2 bg-slate-950/40 hover:bg-slate-900 border border-slate-850 hover:border-slate-700/60 rounded-xl text-left font-mono text-[10px] flex items-center justify-between transition-all group shrink-0 cursor-pointer"
+                        className="w-full p-2 bg-slate-950/40 hover:bg-slate-900 border border-slate-850 hover:border-slate-700/60 rounded-xl text-left font-mono text-xs flex items-center justify-between transition-all group shrink-0 cursor-pointer"
                       >
                         <div className="truncate pr-3">
                           <span className="text-slate-500">[{rec.timestamp}]</span>{" "}
-                          <span className="text-sky-300 uppercase font-semibold text-[11px] group-hover:text-pink-400 transition-colors">
+                          <span className="text-sky-300 uppercase font-semibold text-sm group-hover:text-pink-400 transition-colors">
                             "{rec.input}"
                           </span>
                         </div>
@@ -1167,24 +1167,24 @@ export default function App() {
                   title="Fai click destro o tieni premuto per salvare"
                 />
               </div>
-              <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-slate-950 border border-slate-800 px-3 py-1 rounded-full font-mono text-[7px] text-pink-400 uppercase font-bold tracking-widest shadow-lg">
+              <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-slate-950 border border-slate-800 px-3 py-1 rounded-full font-mono text-[10px] text-pink-400 uppercase font-bold tracking-widest shadow-lg">
                 PNG ULTRA HD ✦ 1:1.28
               </div>
             </div>
 
             {/* Elegant simplified instruction list with high-end gallery aesthetic */}
             <div className="w-full space-y-2.5 mb-5 text-left font-mono">
-              <span className="text-[8px] text-pink-500 font-black uppercase tracking-[0.25em] block border-b border-slate-800/70 pb-1.5 text-center">
+              <span className="text-[10px] text-pink-500 font-black uppercase tracking-[0.25em] block border-b border-slate-800/70 pb-1.5 text-center">
                 ✦ PROTOCOLLO DI ACQUISIZIONE DIGITALE ✦
               </span>
               
-              <p className="text-[9.5px] text-slate-300 text-center leading-relaxed uppercase">
+              <p className="text-xs text-slate-300 text-center leading-relaxed uppercase">
                 Per salvare l'opera ad altissima fedeltà sul tuo dispositivo, clicca sul pulsante di download automatico qui sotto.
               </p>
               
               {/* Discretely packaged fallback instructions */}
-              <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-[8.5px] leading-relaxed text-slate-400 uppercase space-y-1">
-                <div className="text-[7.5px] text-sky-400 font-bold tracking-wider">
+              <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-xs leading-relaxed text-slate-400 uppercase space-y-1">
+                <div className="text-[10px] text-sky-400 font-bold tracking-wider">
                   ✦ METODO MANUALE ALTERNATIVO (FALLBACK):
                 </div>
                 <div>
@@ -1213,7 +1213,7 @@ export default function App() {
                     console.error("Direct download link trigger failed", e);
                   }
                 }}
-                className="bg-gradient-to-r from-sky-400 to-pink-500 hover:opacity-95 hover:scale-[1.02] text-slate-950 py-3 px-1 rounded-2xl text-[9px] font-mono font-black tracking-widest uppercase cursor-pointer transition-all shadow-md flex items-center justify-center gap-1.5"
+                className="bg-gradient-to-r from-sky-400 to-pink-500 hover:opacity-95 hover:scale-[1.02] text-slate-950 py-3 px-1 rounded-2xl text-xs font-mono font-black tracking-widest uppercase cursor-pointer transition-all shadow-md flex items-center justify-center gap-1.5"
                 id="modal-download-direct-btn"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -1226,7 +1226,7 @@ export default function App() {
                   setDownloadHelperImage(null);
                   if (!isMuted) synapticSynth.triggerSynapticBeep(330, 0.3, 0.3);
                 }}
-                className="bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-300 py-3 rounded-2xl text-[9px] font-mono font-bold tracking-widest uppercase cursor-pointer transition-all hover:text-slate-100"
+                className="bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-300 hover:text-slate-100 py-3 rounded-2xl text-xs font-mono font-bold tracking-widest uppercase cursor-pointer transition-all"
                 id="modal-helper-dismiss-btn"
               >
                 TORNA IN OPERA
@@ -1260,7 +1260,7 @@ export default function App() {
 
             {/* Header Title */}
             <div className="space-y-1 mb-5 pr-10 text-left">
-              <span className="text-pink-500 font-mono text-[9px] tracking-[0.25em] font-black uppercase block">
+              <span className="text-pink-500 font-mono text-xs tracking-[0.25em] font-black uppercase block">
                 ✦ RELAZIONE DI PROGETTO ✦
               </span>
               <h3 className="text-xl md:text-2xl font-black font-sans text-slate-100 uppercase tracking-tight leading-tight">
@@ -1304,14 +1304,21 @@ export default function App() {
               </section>
 
               <section className="space-y-2 border-b border-slate-900 pb-4">
-                <span className="text-sky-400 font-bold block">4. L'ELEMENTO EFFIMERO NELLA NET ART:</span>
+                <span className="text-emerald-400 font-bold block">4. MECCANICA E SFORZO (LA MODALITÀ VIDEOGIOCO):</span>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  La <strong>Modalità Videogioco</strong> è stata inserita perché, concettualmente, l'opera esplora il pensiero e la meccanica di gioco, che richiede di allineare gli slider per "sintonizzarsi", è una metafora perfetta per lo sforzo della comunicazione e dell'empatia. Come nella vita reale è difficile sintonizzarsi sui pensieri di un'altra persona o trovare la concentrazione, così nel gioco l'utente prova frustrazione e soddisfazione nel cercare di decodificare il "Pensiero Target".
+                </p>
+              </section>
+
+              <section className="space-y-2 border-b border-slate-900 pb-4">
+                <span className="text-sky-400 font-bold block">5. L'ELEMENTO EFFIMERO NELLA NET ART:</span>
                 <p className="text-slate-400 text-[11px] leading-relaxed">
                   Una delle cifre stilistiche cruciali dell'installazione risiede nel suo dualismo ontologico. L'interconnessione cellulare tramite codice QR è intrinsecamente <span className="text-amber-300 font-semibold">effimera</span>: svanisce dopo 60 secondi dall'emissione per manifestare lo scorrere del tempo digitale. Tuttavia, l'utente può decidere di congelarla generando l'Archiviazione d'Arte Permanente nel blocco di conservazione del report, unendo così la transitorietà cibernetica alla memoria fisica.
                 </p>
               </section>
 
               <section className="space-y-2 pb-2">
-                <span className="text-emerald-400 font-bold block">5. STACK TECNOLOGICO E CODICE SORGENTE:</span>
+                <span className="text-purple-400 font-bold block">6. STACK TECNOLOGICO E CODICE SORGENTE:</span>
                 <p className="text-slate-400 text-[11px] leading-relaxed">
                   L'opera fonde i paradigmi storici della Net Art con le più moderne intelligenze generative. Si appoggia al server-side parser <strong className="text-slate-300">Google Gemini API</strong> per l'analisi affettiva qualitativa, integrato con l'algoritmo di rendering cinetico <strong className="text-slate-300 font-semibold">p5.js (3D coordinate calculation canvas)</strong>, web synth oscillanti <strong className="text-slate-300">Web Audio API</strong> ed un layout interattivo responsive in <strong className="text-slate-300">React + Tailwind CSS</strong>.
                 </p>
@@ -1320,8 +1327,7 @@ export default function App() {
             </div>
 
             {/* Footer information block with signature */}
-            <div className="pt-4 border-t border-slate-900 mt-5 flex items-center justify-between text-[10px] font-mono shrink-0">
-              <span className="text-slate-500">PROG. MULTIMEDIALE II • PSICOLOGIA DELL'ARTE</span>
+            <div className="pt-4 border-t border-slate-900 mt-5 flex justify-end text-xs font-mono shrink-0">
               <button
                 onClick={() => {
                   setIsManifestoOpen(false);
@@ -1353,12 +1359,12 @@ export default function App() {
             title="Esci dalla proiezione [ESC]"
           >
             <X className="w-5 h-5 text-pink-400" />
-            <span className="text-[10px] sm:text-xs">CHIUDI / ESC</span>
+            <span className="text-xs">CHIUDI / ESC</span>
           </button>
 
           {/* Top Stage: Large display of Poetic Text (Placed at the top so it's beautifully readable and never gets pushed off) */}
           <div className="max-w-4xl w-full px-4 text-center select-none z-10 mt-8 mb-4 font-sans shrink-0">
-            <span className="text-[9px] font-mono text-pink-500/80 tracking-[0.2em] uppercase block mb-2">
+            <span className="text-[11px] font-mono text-pink-500/80 tracking-[0.2em] uppercase block mb-2">
               ✦ CONFIGURAZIONE ED ESPRESSIONE POETICA ✦
             </span>
             <div className="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed text-center drop-shadow-[0_2px_15px_rgba(244,63,145,0.2)] flex items-center justify-center px-4 py-3 border border-slate-900/60 bg-slate-950/60 backdrop-blur-md rounded-2xl min-h-[5.5rem]">
@@ -1373,7 +1379,7 @@ export default function App() {
           {/* Floating QR Code in Projection state */}
           {qrCodeDataUrl && !isSharedScan && (
             <div className="absolute bottom-10 left-10 p-3 bg-slate-950/40 backdrop-blur-md rounded-2xl border border-slate-800 shadow-2xl flex flex-col items-center z-50 w-[160px] pointer-events-auto">
-              <span className="text-[8px] text-slate-500 uppercase font-mono tracking-widest mb-2 border-b border-slate-800/50 pb-1 w-full text-center">
+              <span className="text-[10px] text-slate-500 uppercase font-mono tracking-widest mb-2 border-b border-slate-800/50 pb-1 w-full text-center">
                 CLONA L'OPERA
               </span>
               <div className="relative p-1.5 bg-white rounded-lg shadow-lg">
@@ -1419,7 +1425,7 @@ export default function App() {
 
           {/* Bottom decorative bar */}
           <div className="w-full text-center shrink-0 mt-2">
-            <p className="text-[9px] font-mono text-slate-650 tracking-wider uppercase">
+            <p className="text-[11px] font-mono text-slate-500 tracking-wider uppercase">
               INTERCONNESSIONI — MODALITÀ RISULTATO // ESC PER CHIUDERE
             </p>
           </div>
