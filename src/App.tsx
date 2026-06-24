@@ -23,7 +23,6 @@ import {
   Smartphone,
   QrCode,
   Link2,
-  Download,
   Gamepad2
 } from "lucide-react";
 import QRCode from "qrcode";

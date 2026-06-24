@@ -1,26 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { GoogleGenAI, Type } from "@google/genai";
 import { analyzeCognitiveText } from "../src/utils/cognitiveEngine";
-
-// Initialize Gemini client lazily
-let aiClient: GoogleGenAI | null = null;
-function getGeminiClient(): GoogleGenAI {
-  if (!aiClient) {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      console.warn("WARNING: GEMINI_API_KEY environment variable is not defined. Using demo credentials.");
-    }
-    aiClient = new GoogleGenAI({
-      apiKey: apiKey || "MOCK_KEY",
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
-      },
-    });
-  }
-  return aiClient;
-}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Only allow POST requests
@@ -41,8 +20,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!useSimulation) {
       try {
-        const ai = getGeminiClient();
-
         const prompt = `Analizza la natura di questo pensiero o concetto inserito dall'utente: "${cleanedText}".
 Estrai una rappresentazione testuale del "processo invisibile del pensiero" che lo ha generato ed elabora i parametri emisferici corrispondenti (Alpha per intuizione, associazione, flusso di coscienza; Beta per logica, struttura, semantica analitica).`;
 
@@ -59,77 +36,77 @@ Regole per "poeticText":
 - Se l'input dell'utente è Beta (logica/struttura/ragione): la Sfera diventa un reticolo rigido e tagliente. Il testo deve descrivere il concetto dell'utente che si cristallizza in forme matematiche (es: IL TUO RIGORE CRISTALLIZZA IL CAOS IN UN LABIRINTO DI VETTORI ASSOLUTI).
 - Calcola gli altri indici analiticamente.`;
 
-        let response;
-        let retries = 3;
-        let delay = 1000;
-        for (let attempt = 1; attempt <= retries; attempt++) {
-          try {
-            response = await ai.models.generateContent({
-              model: "gemini-2.0-flash",
-              contents: prompt,
-              config: {
-                systemInstruction,
-                responseMimeType: "application/json",
-                responseSchema: {
-                  type: Type.OBJECT,
-                  properties: {
-                    poeticText: {
-                      type: Type.STRING,
-                      description: "A short poetic, philosophical or futuristic mathematical sentence in Italian (max 15-20 words) reflecting the input. Always in UPPERCASE."
-                    },
-                    alphaBalance: {
-                      type: Type.NUMBER,
-                      description: "Float value between 0.0 and 1.0 representing creativity, fluid art, chaos, emotional depth."
-                    },
-                    betaBalance: {
-                      type: Type.NUMBER,
-                      description: "Float value between 0.0 and 1.0 representing logic, mathematics, clean grid structures, rationality."
-                    },
-                    complexity: {
-                      type: Type.NUMBER,
-                      description: "Float from 0.1 to 2.0 defining visual geometry morphing complexity."
-                    },
-                    glitchFactor: {
-                      type: Type.NUMBER,
-                      description: "Float from 0.0 to 1.0 defining random layout/visual interference potential."
-                    },
-                    resonanceFrequency: {
-                      type: Type.NUMBER,
-                      description: "Float from 100.0 to 1000.0 representing acoustic signature frequency."
-                    },
-                    archetype: {
-                      type: Type.STRING,
-                      description: "A short, beautiful archetype label (e.g. 'RISONANZA FRATTALE', 'SINFONIA ALGOMETRICA', 'COLLASSO DI COSCIENZA', etc.). Always in UPPERCASE."
-                    },
-                    keywords: {
-                      type: Type.ARRAY,
-                      items: { type: Type.STRING },
-                      description: "Exactly three semantic concepts related to the user text and analysis. Always in UPPERCASE."
-                    }
-                  },
-                  required: [
-                    "poeticText", "alphaBalance", "betaBalance", "complexity",
-                    "glitchFactor", "resonanceFrequency", "archetype", "keywords"
-                  ]
+        const requestBody = {
+          system_instruction: {
+            parts: [{ text: systemInstruction }]
+          },
+          contents: [
+            { role: "user", parts: [{ text: prompt }] }
+          ],
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: "OBJECT",
+              properties: {
+                poeticText: {
+                  type: "STRING",
+                  description: "A short poetic, philosophical or futuristic mathematical sentence in Italian (max 15-20 words) reflecting the input. Always in UPPERCASE."
+                },
+                alphaBalance: {
+                  type: "NUMBER",
+                  description: "Float value between 0.0 and 1.0 representing creativity, fluid art, chaos, emotional depth."
+                },
+                betaBalance: {
+                  type: "NUMBER",
+                  description: "Float value between 0.0 and 1.0 representing logic, mathematics, clean grid structures, rationality."
+                },
+                complexity: {
+                  type: "NUMBER",
+                  description: "Float from 0.1 to 2.0 defining visual geometry morphing complexity."
+                },
+                glitchFactor: {
+                  type: "NUMBER",
+                  description: "Float from 0.0 to 1.0 defining random layout/visual interference potential."
+                },
+                resonanceFrequency: {
+                  type: "NUMBER",
+                  description: "Float from 100.0 to 1000.0 representing acoustic signature frequency."
+                },
+                archetype: {
+                  type: "STRING",
+                  description: "A short, beautiful archetype label (e.g. 'RISONANZA FRATTALE', 'SINFONIA ALGOMETRICA', 'COLLASSO DI COSCIENZA', etc.). Always in UPPERCASE."
+                },
+                keywords: {
+                  type: "ARRAY",
+                  items: { type: "STRING" },
+                  description: "Exactly three semantic concepts related to the user text and analysis. Always in UPPERCASE."
                 }
-              }
-            });
-            break; // Success!
-          } catch (err: any) {
-            const isRetryable = err?.status === 503 || err?.code === 503 ||
-                                err?.status === 429 || err?.code === 429 ||
-                                err?.message?.includes("503") || err?.message?.includes("UNAVAILABLE") ||
-                                err?.message?.includes("429") || err?.message?.includes("RESOURCE_EXHAUSTED");
-            if (isRetryable && attempt < retries) {
-              await new Promise(resolve => setTimeout(resolve, delay));
-              delay *= 2;
-            } else {
-              throw err;
+              },
+              required: [
+                "poeticText", "alphaBalance", "betaBalance", "complexity",
+                "glitchFactor", "resonanceFrequency", "archetype", "keywords"
+              ]
             }
           }
+        };
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.text();
+          console.error("Gemini API Error:", errorData);
+          throw new Error(`Gemini API error: ${response.status}`);
         }
 
-        const resultText = response?.text;
+        const data = await response.json();
+        const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
         if (!resultText) {
           throw new Error("Gemini ha restituito un output vuoto.");
         }
@@ -139,8 +116,7 @@ Regole per "poeticText":
       } catch (innerError: any) {
         useSimulation = true;
         const errMsg = innerError?.message || "";
-        const errStatus = innerError?.status || innerError?.code;
-        if (errStatus === 503 || errMsg.includes("503") || errMsg.includes("demand") || errMsg.includes("UNAVAILABLE")) {
+        if (errMsg.includes("503") || errMsg.includes("demand") || errMsg.includes("UNAVAILABLE") || errMsg.includes("429")) {
           simReason = "overload";
         } else {
           simReason = "api_error";
