@@ -19,6 +19,6 @@ Include inoltre una **Modalità Videogioco, introdotta come metafora dello sforz
 - **Modalità Videogioco (Neural Sync)**: Trova la giusta sintonia psico-geometrica modificando gli slider per raggiungere il 90% di risonanza con un concetto segreto, svelato da un indizio.
 - **Archiviazione (Reperto)**: Salva la configurazione attuale dell'opera come immagine ad altissima risoluzione o condividila tramite un QR Code.
 
-## Il codice qr
+## Il Codice QR
 
 L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere inesorabile del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
