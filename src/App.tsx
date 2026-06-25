@@ -574,6 +574,19 @@ export default function App() {
 
           <button
             onClick={() => {
+              setIsGameMode(true);
+              if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
+            }}
+            className="p-1 px-3 rounded-xl border bg-slate-900/50 border-sky-900/50 text-sky-400 hover:bg-sky-900/20 hover:text-sky-300 transition-all cursor-pointer text-[10px] font-mono font-bold uppercase flex items-center justify-center gap-1.5"
+            title="Modalità Videogioco"
+            id="header-game-mode-btn"
+          >
+            <Gamepad2 className="w-3.5 h-3.5" />
+            VIDEOGIOCO
+          </button>
+
+          <button
+            onClick={() => {
               setIsManifestoOpen(true);
               if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
             }}
