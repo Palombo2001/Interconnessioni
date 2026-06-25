@@ -795,22 +795,22 @@ export default function App() {
                         [ SCRIVI CIÒ CHE LA TUA MENTE TI SUGGERISCE ]
                       </label>
                       <p className="text-xs font-mono text-slate-400 italic uppercase">
-                        La sfera rimarrà perfetta e neutra durante la scrittura estemporanea. La sintesi estetica ed affettiva del tuo pensiero partirà ad invio completato.
+                        La sfera muterà in tempo reale durante la scrittura estemporanea. La sintesi estetica definitiva del tuo pensiero partirà ad invio completato.
                       </p>
                       <div className="relative">
-                        <input
+                        <textarea
                           id="synaptic-input"
-                          type="text"
+                          rows={3}
                           value={textInput}
                           onChange={handleInputChange}
                           placeholder="ES. ARTE, MATEMATICA, CAOS, SOGNO..."
-                          className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 rounded-2xl pl-4 pr-14 py-3.5 text-sm font-mono tracking-wide text-slate-100 placeholder-slate-600 focus:outline-none transition-all uppercase"
+                          className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-pink-500 focus:ring-1 focus:ring-pink-500/30 rounded-2xl pl-4 pr-14 py-3.5 text-sm font-mono tracking-wide text-slate-100 placeholder-slate-600 focus:outline-none transition-all uppercase resize-none scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent"
                           disabled={isAnalyzing}
                         />
                         <button
                           type="submit"
                           disabled={textInput.trim().length === 0 || isAnalyzing}
-                          className="absolute right-2 top-2 p-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-slate-950 font-bold transition-all disabled:opacity-30 disabled:hover:bg-pink-500 cursor-pointer"
+                          className="absolute right-2 bottom-2 p-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-slate-950 font-bold transition-all disabled:opacity-30 disabled:hover:bg-pink-500 cursor-pointer"
                           id="submit-synaptic-btn"
                         >
                           <Send className="w-4 h-4" />
