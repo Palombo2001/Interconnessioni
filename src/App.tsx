@@ -910,9 +910,15 @@ export default function App() {
                   </span>
 
                   {/* Slider for Alpha waves */}
-                  <div className="space-y-1.5 font-mono text-xs">
+                  <div className="space-y-1.5 font-mono text-xs relative group">
                     <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-pink-400 font-bold uppercase">EMISFERO ALPHA (EMOZIONALE / DESTRO):</span>
+                      <span className="text-pink-400 font-bold uppercase cursor-help relative inline-block">
+                        EMISFERO ALPHA (EMOZIONALE / DESTRO):
+                        <div className="absolute bottom-full left-0 mb-2 w-64 p-2.5 bg-slate-900/95 backdrop-blur-sm border border-slate-700 text-slate-300 text-[10px] leading-relaxed rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20 normal-case font-sans tracking-normal pointer-events-none">
+                          <strong className="text-pink-400 block mb-1">Impatto Visivo:</strong>
+                          Aumenta l'attività caotica, la diffusione fluida delle nubi di particelle, le forme organiche e il tremolio irrazionale della materia.
+                        </div>
+                      </span>
                       <span>{Math.round(activeAlpha * 100)}%</span>
                     </div>
                     <input
@@ -933,9 +939,15 @@ export default function App() {
                   </div>
  
                   {/* Slider for Beta waves */}
-                  <div className="space-y-1.5 font-mono text-xs">
+                  <div className="space-y-1.5 font-mono text-xs relative group mt-3">
                     <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-sky-400 font-bold uppercase">EMISFERO BETA (LOGICO / SINISTRO):</span>
+                      <span className="text-sky-400 font-bold uppercase cursor-help relative inline-block">
+                        EMISFERO BETA (LOGICO / SINISTRO):
+                        <div className="absolute bottom-full left-0 mb-2 w-64 p-2.5 bg-slate-900/95 backdrop-blur-sm border border-slate-700 text-slate-300 text-[10px] leading-relaxed rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20 normal-case font-sans tracking-normal pointer-events-none">
+                          <strong className="text-sky-400 block mb-1">Impatto Visivo:</strong>
+                          Definisce le geometrie solide centrali, l'ordine strutturale, i filamenti aurei rettilinei e le connessioni logiche simmetriche.
+                        </div>
+                      </span>
                       <span>{Math.round(activeBeta * 100)}%</span>
                     </div>
                     <input
