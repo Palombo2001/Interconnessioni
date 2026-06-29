@@ -1295,7 +1295,7 @@ export default function App() {
                 ✦ RELAZIONE DEL PROGETTO ✦
               </span>
               <h3 className="text-xl md:text-2xl font-black font-sans text-slate-100 uppercase tracking-tight leading-tight">
-                INTERCONNESSIONI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-450 to-sky-450">IL PENSIERO VISIBILE</span>
+                INTERCONNESSIONI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-400 to-sky-400">IL PENSIERO VISIBILE</span>
               </h3>
               <p className="text-xs font-mono text-slate-500 uppercase">
                 Progetto di ricerca artistica di <strong className="text-slate-300">Priscilla Palombo</strong> • Accademia di Belle Arti
