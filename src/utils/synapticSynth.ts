@@ -79,6 +79,73 @@ class SynapticSynth {
     }
   }
 
+  public triggerTypingPiano(index: number) {
+    this.init();
+    if (!this.ctx || !this.primaryGain) return;
+
+    if (this.ctx.state === "suspended") {
+      this.ctx.resume();
+    }
+
+    const t = this.ctx.currentTime;
+    
+    // Choose a note from the scale based on the index (character code or length)
+    const idx = Math.abs(index) % CELESTIAL_SCALE.length;
+    // Shift it up an octave or two for a delicate piano-like register
+    const baseFreq = CELESTIAL_SCALE[idx] * 2;
+
+    // Create a delicate sine/triangle mix to simulate a soft piano hammer
+    const osc = this.ctx.createOscillator();
+    osc.type = "sine"; // Very soft
+    osc.frequency.setValueAtTime(baseFreq, t);
+
+    // Add a tiny bit of "hammer" attack transient
+    const hammerOsc = this.ctx.createOscillator();
+    hammerOsc.type = "triangle";
+    hammerOsc.frequency.setValueAtTime(baseFreq * 2, t); // Octave higher
+
+    const panner = this.ctx.createStereoPanner ? this.ctx.createStereoPanner() : null;
+    if (panner) {
+      // Random delicate panning
+      panner.pan.setValueAtTime((Math.random() - 0.5) * 0.4, t);
+    }
+
+    const gainNode = this.ctx.createGain();
+    const hammerGain = this.ctx.createGain();
+
+    // Delicate piano envelope (fast attack, natural decay)
+    gainNode.gain.setValueAtTime(0, t);
+    gainNode.gain.linearRampToValueAtTime(0.06, t + 0.015); // Very soft peak
+    gainNode.gain.exponentialRampToValueAtTime(1e-4, t + 0.4);
+
+    // Hammer envelope (very fast transient)
+    hammerGain.gain.setValueAtTime(0, t);
+    hammerGain.gain.linearRampToValueAtTime(0.02, t + 0.005);
+    hammerGain.gain.exponentialRampToValueAtTime(1e-4, t + 0.05);
+
+    if (panner) {
+      osc.connect(panner);
+      hammerOsc.connect(panner);
+      panner.connect(gainNode);
+      panner.connect(hammerGain);
+    } else {
+      osc.connect(gainNode);
+      hammerOsc.connect(hammerGain);
+    }
+
+    gainNode.connect(this.primaryGain);
+    hammerGain.connect(this.primaryGain);
+
+    // Ensure master gain is open
+    this.primaryGain.gain.cancelScheduledValues(t);
+    this.primaryGain.gain.setTargetAtTime(1.0, t, 0.01);
+
+    osc.start(t);
+    hammerOsc.start(t);
+    osc.stop(t + 0.5);
+    hammerOsc.stop(t + 0.1);
+  }
+
   /**
    * Triggers a beautiful synthetic cell ripple, tuned to our pentatonic scale.
    * Completely avoids harsh beep sounds, producing a clean glassy droplet resonance.
@@ -134,11 +201,11 @@ class SynapticSynth {
     // Fast, responsive attack, extremely short percussive decay for clean mechanical typing clicks.
     // This avoids overlapping long-tail notes from creating an unwanted continuous background drone.
     gainRoot.gain.setValueAtTime(0.0, t);
-    gainRoot.gain.linearRampToValueAtTime(0.05 * (alpha + 0.1), t + 0.004); // Instant peak
+    gainRoot.gain.linearRampToValueAtTime(0.2 * (alpha + 0.1), t + 0.004); // Instant peak
     gainRoot.gain.exponentialRampToValueAtTime(1e-4, t + 0.14 + (alpha * 0.06)); // Extremely brief decay tail
 
     gainShimmer.gain.setValueAtTime(0.0, t);
-    gainShimmer.gain.linearRampToValueAtTime(0.02 * alpha, t + 0.003); // Fast shimmer strike
+    gainShimmer.gain.linearRampToValueAtTime(0.08 * alpha, t + 0.003); // Fast shimmer strike
     gainShimmer.gain.exponentialRampToValueAtTime(1e-4, t + 0.08); // Quick cutoff
 
     // Wire up connections
@@ -158,7 +225,7 @@ class SynapticSynth {
 
     // Turn up master gain safely
     this.primaryGain.gain.cancelScheduledValues(t);
-    this.primaryGain.gain.setValueAtTime(0.25, t);
+    this.primaryGain.gain.setValueAtTime(1.0, t);
     this.primaryGain.gain.exponentialRampToValueAtTime(0.02, t + 0.25);
 
     // Start oscillators and clean up on completion quickly
@@ -190,7 +257,7 @@ class SynapticSynth {
     this.filter.Q.setTargetAtTime(2.0, t, 0.5);
     
     this.primaryGain.gain.cancelScheduledValues(t);
-    this.primaryGain.gain.setValueAtTime(0.5, t);
+    this.primaryGain.gain.setValueAtTime(1.1, t);
     this.primaryGain.gain.linearRampToValueAtTime(0.1, t + 3.0);
     // Root, Fifth, Octave, High 9th, High Maj7th
     const chordRatios = [0.5, 0.75, 1.0, 1.25, 1.5];
@@ -206,7 +273,7 @@ class SynapticSynth {
 
       const gain = this.ctx!.createGain();
       gain.gain.setValueAtTime(0.0, strikeTime);
-      gain.gain.linearRampToValueAtTime(0.035 * (5 - index) / 5, strikeTime + 0.015);
+      gain.gain.linearRampToValueAtTime(0.09 * (5 - index) / 5, strikeTime + 0.015);
       gain.gain.exponentialRampToValueAtTime(1e-4, strikeTime + 2.2);
 
       const panner = this.ctx!.createStereoPanner ? this.ctx!.createStereoPanner() : null;
@@ -225,22 +292,6 @@ class SynapticSynth {
       osc.start(strikeTime);
       osc.stop(strikeTime + 2.4);
     });
-
-    // Make an ambient low-frequency ground rumble beneath the cascade for physical depth
-    const groundOsc = this.ctx.createOscillator();
-    groundOsc.type = "sine";
-    groundOsc.frequency.setValueAtTime(base * 0.25, t);
-    
-    const groundGain = this.ctx.createGain();
-    groundGain.gain.setValueAtTime(0.0, t);
-    groundGain.gain.linearRampToValueAtTime(0.04, t + 0.05);
-    groundGain.gain.exponentialRampToValueAtTime(1e-4, t + 2.8);
-    
-    groundOsc.connect(groundGain);
-    groundGain.connect(this.filter);
-    
-    groundOsc.start(t);
-    groundOsc.stop(t + 2.9);
   }
 
   /**
@@ -265,18 +316,18 @@ class SynapticSynth {
       
       this.ambientGain.gain.cancelScheduledValues(t);
       this.ambientGain.gain.setValueAtTime(0, t);
-      this.ambientGain.gain.linearRampToValueAtTime(0.15, t + 2.0);
+      this.ambientGain.gain.linearRampToValueAtTime(0.25, t + 2.0);
 
-      // Create drone oscillators
-      const freqs = [110, 164.81, 220]; // A2, E3, A3
+      // Create harmonic ambient pad oscillators (A Major 7th chord)
+      const freqs = [220.00, 277.18, 329.63, 415.30]; // A3, C#4, E4, G#4
       freqs.forEach((freq, idx) => {
         const osc = this.ctx!.createOscillator();
-        osc.type = "sine";
+        osc.type = "triangle";
         osc.frequency.setValueAtTime(freq, t);
 
         const pan = this.ctx!.createStereoPanner ? this.ctx!.createStereoPanner() : null;
         if (pan) {
-          pan.pan.setValueAtTime(idx === 1 ? -0.5 : (idx === 2 ? 0.5 : 0), t);
+          pan.pan.setValueAtTime(idx % 2 === 0 ? -0.4 : 0.4, t);
           osc.connect(pan);
           pan.connect(this.ambientFilter!);
         } else {
@@ -301,7 +352,7 @@ class SynapticSynth {
     }
 
     // Dynamic modulation based on alpha/beta
-    const baseFreq = 150 + (alpha * 300);
+    const baseFreq = 400 + (alpha * 600);
     this.ambientFilter.frequency.cancelScheduledValues(t);
     this.ambientFilter.frequency.setTargetAtTime(baseFreq, t, 1.0);
     this.ambientFilter.Q.cancelScheduledValues(t);

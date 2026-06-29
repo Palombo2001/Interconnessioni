@@ -37,7 +37,7 @@ Regole per "poeticText":
 - Calcola gli altri indici analiticamente.`;
 
         const requestBody = {
-          system_instruction: {
+          systemInstruction: {
             parts: [{ text: systemInstruction }]
           },
           contents: [
@@ -90,18 +90,41 @@ Regole per "poeticText":
           }
         };
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody)
-        });
+        let response;
+        let retries = 3;
+        let delay = 1000;
+        let errorData = "";
 
-        if (!response.ok) {
-          const errorData = await response.text();
-          console.error("Gemini API Error:", errorData);
-          throw new Error(`Gemini API error: ${response.status}`);
+        for (let attempt = 1; attempt <= retries; attempt++) {
+          response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+          });
+
+          if (response.ok) {
+            break;
+          }
+
+          errorData = await response.text();
+          console.error(`Gemini API Error (Attempt ${attempt}):`, errorData);
+          
+          if (response.status === 429 || response.status === 503) {
+            if (attempt < retries) {
+              await new Promise(resolve => setTimeout(resolve, delay));
+              delay *= 2;
+            } else {
+              throw new Error(`Gemini API error: ${response.status} - ${errorData}`);
+            }
+          } else {
+             throw new Error(`Gemini API error: ${response.status} - ${errorData}`);
+          }
+        }
+
+        if (!response || !response.ok) {
+           throw new Error(`Gemini API error after retries`);
         }
 
         const data = await response.json();

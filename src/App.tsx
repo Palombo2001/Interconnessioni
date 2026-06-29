@@ -297,11 +297,18 @@ export default function App() {
   }, [activeState, synapticData, isMuted]);
 
   // Keyboard and dynamic sounds configuration
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (activeState === "REPERTO") return;
     
-    const value = e.target.value.toUpperCase().slice(0, 75);
-    setTextInput(value);
+    const newValue = e.target.value.toUpperCase().slice(0, 75);
+    
+    // Play delicate piano sound if a new character was typed
+    if (newValue.length > textInput.length && !isMuted) {
+       const charCode = newValue.charCodeAt(newValue.length - 1);
+       synapticSynth.triggerTypingPiano(charCode);
+    }
+    
+    setTextInput(newValue);
     
     // Do not alter active sphere parameters during typing. 
     // The sphere remains beautifully pristine and neutral until analysis is completed.
