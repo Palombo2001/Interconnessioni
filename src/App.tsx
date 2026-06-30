@@ -538,7 +538,7 @@ export default function App() {
                 setIsProjectionActive(false);
                 if (!isMuted) synapticSynth.triggerSynapticBeep(330, 0.4, 0.4);
               }}
-              className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-wider transition-all uppercase cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all uppercase cursor-pointer ${
                 activeState === "BENVENUTO" && !isProjectionActive
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-slate-950 shadow-md shadow-pink-500/10"
                   : "text-slate-400 hover:text-slate-200"
@@ -553,7 +553,7 @@ export default function App() {
                 setIsProjectionActive(false);
                 if (!isMuted) synapticSynth.triggerSynapticBeep(440, 0.4, 0.4);
               }}
-              className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-wider transition-all uppercase cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all uppercase cursor-pointer ${
                 activeState === "INTERAZIONE" && !isProjectionActive
                   ? "bg-sky-400 text-slate-950 font-bold"
                   : "text-slate-400 hover:text-slate-200"
@@ -569,7 +569,7 @@ export default function App() {
                 }
                 if (!isMuted) synapticSynth.triggerSynapticBeep(660, 0.4, 0.4);
               }}
-              className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-wider transition-all uppercase cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all uppercase cursor-pointer ${
                 activeState === "REPERTO"
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-slate-950 font-bold shadow-md"
                   : "text-slate-400 hover:text-slate-200"
@@ -584,7 +584,7 @@ export default function App() {
                 setActiveState("SALVATAGGIO");
                 if (!isMuted) synapticSynth.triggerSynapticBeep(770, 0.4, 0.4);
               }}
-              className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-wider transition-all uppercase cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all uppercase cursor-pointer ${
                 activeState === "SALVATAGGIO"
                   ? "bg-amber-400 text-slate-950 font-bold shadow-md"
                   : "text-slate-400 hover:text-slate-200"
@@ -605,7 +605,7 @@ export default function App() {
             title="Test di Allineamento"
             id="header-game-mode-btn"
           >
-            <Gamepad2 className="w-3.5 h-3.5" />
+            <Gamepad2 className="w-6 h-6" />
           </button>
 
           <button
@@ -613,7 +613,7 @@ export default function App() {
               setIsManifestoOpen(true);
               if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
             }}
-            className="p-1 px-3 rounded-xl text-slate-500 hover:text-slate-300 transition-all cursor-pointer text-[10px] uppercase font-mono tracking-wider flex items-center gap-1.5"
+            className="p-1 px-3 rounded-xl text-slate-200 hover:text-white transition-all cursor-pointer text-xs uppercase font-mono tracking-wider font-bold flex items-center gap-1.5"
             title="Concept dell'Opera"
             id="manifesto-trigger-btn"
           >
