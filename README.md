@@ -1,24 +1,16 @@
-# INTERCONNESSIONI
+# INTERCONNESSIONI: Il Pensiero Visibile
 
-**Progetto di ricerca artistica di Priscilla Palombo • Accademia di Belle Arti**
+**INTERCONNESSIONI** è un'opera d'arte interattiva e generativa che trasforma l'invisibile — il pensiero e il linguaggio umano — in materia visibile, tangibile e udibile. Nasce dall'esigenza personale di rappresentare visivamente il funzionamento della mente, dando forma scultorea e dinamica al flusso caotico e affascinante dei pensieri.
 
-*Interconnessioni* è un'installazione web interattiva che esplora il dualismo tra il processo invisibile del pensiero e la produzione del linguaggio. Attraverso un'interfaccia cibernetica, l'opera traduce testi in input in sculture cinetiche generate algoritmicamente e soundscapes generativi.
+## Concept dell'Opera
 
-## Concetto
+### 1. Traduzione Sinestetica
+L'installazione agisce come un "traduttore estetico". I testi inseriti dagli utenti vengono elaborati in tempo reale e tramutati in sculture digitali cangianti accompagnate da frequenze sonore. È un'esperienza sinestetica in cui il significato delle parole diventa materia e stimolo sensoriale.
 
-L'opera esplora il pensiero lungo un asse simbolico tra polarità **Alpha** (intuitiva/associativa) e **Beta** (analitica/strutturata), plasmando dinamicamente il comportamento di una sfera. 
+### 2. La Scienza come Metafora Artistica
+Usando la neurologia come codice poetico, l'opera divide l'espressione umana in due grandi famiglie visive:
+- **Espressione Emotiva/Intuitiva:** Genera sculture in movimento dalle linee morbide, elastiche e forme organiche.
+- **Espressione Logica/Razionale:** Genera sculture che si irrigidiscono in forme geometriche, spigolose e simmetriche.
 
-Include inoltre una **Modalità Videogioco, introdotta come metafora dello sforzo comunicativo: la meccanica di allineamento degli slider per sintonizzarsi su un pensiero target simula la difficoltà e l'empatia richieste nella vita reale per comprendere i pensieri altrui.
-
-
-
-## Funzionalità Principali
-
-- **Analisi Testuale AI**: Inserisci un concetto e osserva come l'intelligenza artificiale ne interpreta il peso analitico e intuitivo.
-- **Scultura Cinetica in Tempo Reale**: Una sfera generata tramite algoritmi in p5.js che reagisce visivamente ai parametri Alpha, Beta e Complessità.
-- **Modalità Videogioco (Neural Sync)**: Trova la giusta sintonia psico-geometrica modificando gli slider per raggiungere il 90% di risonanza con un concetto segreto, svelato da un indizio.
-- **Archiviazione (Reperto)**: Salva la configurazione attuale dell'opera come immagine ad altissima risoluzione o condividila tramite un QR Code.
-
-## Il Codice QR
-
-L'interconnessione tramite codice QR riflette l'aspetto effimero della comunicazione digitale: i codici hanno una validità limitata, svanendo per manifestare lo scorrere inesorabile del tempo, a meno che l'utente non decida di congelare l'opera in un "Archivio d'Arte Permanente".
+### 3. L'Interazione Attiva e la Sfida dell'Allineamento
+L'interazione con l'opera non è passiva. Il "Test di Allineamento Emisferico" introduce un elemento di sfida in cui l'utente deve calibrare attivamente il proprio modo di esprimersi, cercando il corretto bilanciamento tra logica ed emozione per raggiungere una specifica "sintonizzazione". Questo processo simula la fatica reale e l'impegno necessari nella comunicazione umana per comprendersi reciprocamente.
