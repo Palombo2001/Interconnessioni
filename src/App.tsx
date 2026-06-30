@@ -497,7 +497,7 @@ export default function App() {
     <div className="min-h-[100dvh] bg-slate-950 text-slate-100 flex flex-col selection:bg-rose-500/30 selection:text-rose-100">
       {/* Hidden high-res canvas generator for PNG export */}
       {synapticData && (
-        <div className="hidden">
+        <div className="fixed -top-[3000px] -left-[3000px] opacity-0 pointer-events-none">
           <SynapticArtFrame
             word={textInput}
             alpha={activeAlpha}
@@ -1136,15 +1136,24 @@ export default function App() {
             {/* Elegant action buttons */}
             <div className="grid grid-cols-2 gap-3 w-full">
               <button
-                onClick={() => {
+                onClick={async () => {
                   try {
+                    const res = await fetch(downloadHelperImage);
+                    const blob = await res.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    
                     const link = document.createElement("a");
-                    link.href = downloadHelperImage;
+                    link.href = blobUrl;
                     const normalized = textInput.toUpperCase().replace(/\s+/g, "_") || "ART";
                     link.download = `INTERCONNESSIONI_OPERA_${normalized}.png`;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
+                    
+                    setTimeout(() => {
+                      window.URL.revokeObjectURL(blobUrl);
+                    }, 100);
+                    
                     if (!isMuted) synapticSynth.triggerSynapticBeep(520, 0.2, 0.2);
                   } catch (e) {
                     console.error("Direct download link trigger failed", e);
@@ -1210,20 +1219,24 @@ export default function App() {
             <div className="flex-1 overflow-y-auto space-y-6 pr-1 font-sans text-sm text-slate-300 leading-relaxed relative text-left scrollbar-thin scrollbar-thumb-slate-800" id="manifesto-scroll-body">
               
               <section className="space-y-2 border-b border-slate-900 pb-4">
+                <span className="text-pink-500 font-bold uppercase tracking-wide text-xs block">1. La Genesi Personale: Mappare l'Invisibile</span>
+                <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                  All'origine di questo progetto c'è un'esigenza personale: la volontà di rappresentare visivamente il modo in cui percepisco il funzionamento della mia stessa mente. L'installazione nasce dal tentativo di dare una forma scultorea e dinamica a quel flusso caotico e affascinante che si attiva in me ogni volta che elaboro un pensiero, trasformando un'esperienza puramente cerebrale e intima in uno spazio di condivisione collettiva.
+                </p>
                 <p className="text-slate-300 text-sm leading-relaxed">
                   <strong>INTERCONNESSIONI</strong> non è un semplice software o una classica installazione statica, ma un’opera d’arte interattiva e generativa che trasforma l'invisibile (il pensiero e il linguaggio umano) in qualcosa di visibile, tangibile e udibile.
                 </p>
               </section>
 
               <section className="space-y-2 border-b border-slate-900 pb-4">
-                <span className="text-sky-400 font-bold uppercase tracking-wide text-xs block">1. La Traduzione da Concetto a Forma (Sinestesia)</span>
+                <span className="text-sky-400 font-bold uppercase tracking-wide text-xs block">2. La Traduzione da Concetto a Forma (Sinestesia)</span>
                 <p className="text-slate-300 text-sm leading-relaxed">
                   L'opera agisce come un "traduttore estetico". L'utente inserisce del testo (input) e il sistema lo elabora in tempo reale, trasformandolo in una scultura digitale o fisica che cambia forma e produce suoni. È un'esperienza sinestetica: il significato delle parole diventa materia e stimolo sensoriale.
                 </p>
               </section>
 
               <section className="space-y-2 border-b border-slate-900 pb-4">
-                <span className="text-pink-500 font-bold uppercase tracking-wide text-xs block">2. La Scienza come Metafora Artistica</span>
+                <span className="text-pink-500 font-bold uppercase tracking-wide text-xs block">3. La Scienza come Metafora Artistica</span>
                 <p className="text-slate-300 text-sm leading-relaxed">
                   L'opera non ha pretese di rigore neuroscientifico, ma usa la neurologia come codice poetico. Divide l'espressione umana in due grandi famiglie visive:
                 </p>
@@ -1234,7 +1247,7 @@ export default function App() {
               </section>
 
               <section className="space-y-2 pb-2">
-                <span className="text-amber-400 font-bold uppercase tracking-wide text-xs block">3. L'Interazione non è Passiva: Il Test come Sfida</span>
+                <span className="text-amber-400 font-bold uppercase tracking-wide text-xs block">4. L'Interazione non è Passiva: Il Test come Sfida</span>
                 <p className="text-slate-300 text-sm leading-relaxed">
                   Il "Test di Allineamento Emisferico" introduce un elemento di gamification o comunque di sforzo attivo. Non basta guardare l'opera; l'utente deve cercare una "sintonizzazione". Questo simula la fatica reale della comunicazione umana: per capire davvero un concetto target (o un'altra persona), bisogna calibrare il proprio modo di esprimersi, trovando il giusto bilanciamento tra logica ed emozione.
                 </p>
