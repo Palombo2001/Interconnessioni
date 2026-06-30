@@ -443,31 +443,83 @@ export default function App() {
   };
 
   const triggerSavePNG = () => {
-    if (latestArtFrameDataUrl) {
-      handleArtFrameDownload(latestArtFrameDataUrl);
-      return;
-    }
-    
-    // Attempt to grab the active 3D canvas rendering as fallback
+    // Attempt to grab the active 3D canvas rendering
     const p5Canvas = (document.getElementById("synaptic-p5-canvas") || document.querySelector(".p5Canvas")) as HTMLCanvasElement | null;
     if (p5Canvas) {
       try {
-        const dataUrl = p5Canvas.toDataURL("image/png");
-        setDownloadHelperImage(dataUrl);
-        setDownloadHelperTitle(`SCULTURA 3D // ${textInput.toUpperCase() || "SINTESI"}`);
-        setIsDownloadHelperOpen(true);
-        if (!isMuted) synapticSynth.triggerSynapticBeep(640, 0.4, 0.4);
+        const width = p5Canvas.width;
+        const scale = width / 600; 
+        const padding = 20 * scale;
+        const textHeight = 120 * scale;
         
-        // Best-effort auto-download of 3D canvas snapshot (might fail in sandboxed iframe)
-        try {
-          const link = document.createElement("a");
-          link.href = dataUrl;
-          link.download = `INTERCONNESSIONI_3D_${textInput.replace(/\s+/g, "_") || "ART"}.png`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } catch (downloadErr) {
-          console.warn("Direct iframe download blocked, fallback modal displayed", downloadErr);
+        const compCanvas = document.createElement("canvas");
+        compCanvas.width = width;
+        compCanvas.height = p5Canvas.height + textHeight + padding;
+        const ctx = compCanvas.getContext("2d");
+        
+        if (ctx) {
+          // Fill background
+          ctx.fillStyle = "#020204";
+          ctx.fillRect(0, 0, compCanvas.width, compCanvas.height);
+          
+          // Draw the p5 canvas
+          ctx.drawImage(p5Canvas, 0, 0);
+          
+          // Draw text
+          const conceptText = (textInput || "SINTESI").toUpperCase();
+          const poeticText = synapticData?.poeticText || "Connessione di coscienza integrata nella matrice.";
+          
+          let currentY = p5Canvas.height + padding;
+          
+          // Title
+          ctx.font = `bold ${16 * scale}px monospace`;
+          ctx.fillStyle = "#ffffff";
+          ctx.fillText(`CONCEPT // ${conceptText}`, padding, currentY + (16 * scale));
+          currentY += 40 * scale;
+          
+          // Poetic text
+          ctx.font = `italic ${14 * scale}px 'Playfair Display', serif`;
+          ctx.fillStyle = "#ec4899"; // pink-500
+          
+          const words = poeticText.split(' ');
+          let line = '';
+          for (let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + ' ';
+            const metrics = ctx.measureText(testLine);
+            const testWidth = metrics.width;
+            if (testWidth > width - (padding * 2) && n > 0) {
+              ctx.fillText(line, padding, currentY);
+              line = words[n] + ' ';
+              currentY += 22 * scale;
+            } else {
+              line = testLine;
+            }
+          }
+          ctx.fillText(line, padding, currentY);
+          
+          const dataUrl = compCanvas.toDataURL("image/png");
+          setDownloadHelperImage(dataUrl);
+          setDownloadHelperTitle(`SCULTURA 3D // ${textInput.toUpperCase() || "SINTESI"}`);
+          setIsDownloadHelperOpen(true);
+          if (!isMuted) synapticSynth.triggerSynapticBeep(640, 0.4, 0.4);
+          
+          // Best-effort auto-download of 3D canvas snapshot (might fail in sandboxed iframe)
+          try {
+            const link = document.createElement("a");
+            link.href = dataUrl;
+            link.download = `INTERCONNESSIONI_3D_${textInput.replace(/\s+/g, "_") || "ART"}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } catch (downloadErr) {
+            console.warn("Direct iframe download blocked, fallback modal displayed", downloadErr);
+          }
+        } else {
+          // Fallback if context fails
+          const dataUrl = p5Canvas.toDataURL("image/png");
+          setDownloadHelperImage(dataUrl);
+          setDownloadHelperTitle(`SCULTURA 3D // ${textInput.toUpperCase() || "SINTESI"}`);
+          setIsDownloadHelperOpen(true);
         }
       } catch (err) {
         console.error("Failed to capture p5 canvas toDataURL snapshot:", err);
