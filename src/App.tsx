@@ -579,6 +579,21 @@ export default function App() {
             >
               3. Risultato
             </button>
+            <button
+              onClick={() => {
+                setActiveState("SALVATAGGIO");
+                if (!isMuted) synapticSynth.triggerSynapticBeep(770, 0.4, 0.4);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-[9px] font-bold tracking-wider transition-all uppercase cursor-pointer ${
+                activeState === "SALVATAGGIO"
+                  ? "bg-amber-400 text-slate-950 font-bold shadow-md"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+              id="switch-nav-save"
+              title="Archiviazione"
+            >
+              4. Archiviazione
+            </button>
           </div>
 
           <button
@@ -586,12 +601,11 @@ export default function App() {
               setIsGameMode(true);
               if (!isMuted) synapticSynth.triggerSynapticBeep(550, 0.4, 0.4);
             }}
-            className="p-1 px-3 rounded-xl border bg-slate-900/50 border-sky-900/50 text-sky-400 hover:bg-sky-900/20 hover:text-sky-300 transition-all cursor-pointer text-[10px] font-mono font-bold uppercase flex items-center justify-center gap-1.5"
+            className="p-2 rounded-xl border bg-slate-900/50 border-sky-900/50 text-sky-400 hover:bg-sky-900/20 hover:text-sky-300 transition-all cursor-pointer"
             title="Test di Allineamento"
             id="header-game-mode-btn"
           >
             <Gamepad2 className="w-3.5 h-3.5" />
-            ALLINEAMENTO
           </button>
 
           <button
@@ -870,16 +884,16 @@ export default function App() {
                   </form>
                 ) : (
                   <div className="space-y-4 font-mono">
-                    <div className="p-4 bg-slate-950/80 border border-[#1e1e2d]/60 rounded-2xl space-y-3 relative overflow-hidden">
-                      <div className="absolute right-3 top-3 bg-pink-500/10 border border-pink-550/20 text-pink-400 text-[8px] px-1.5 py-0.5 rounded uppercase font-bold tracking-widest leading-none flex items-center gap-1">
-                        <span className="w-1 h-1 rounded-full bg-pink-500 animate-pulse" />
-                        OPERA ATTIVA
-                      </div>
-                      <div>
-                        <h4 className="text-xs text-slate-400 uppercase font-bold tracking-wider">CONCETTO ANALIZZATO</h4>
-                        <p className="text-sm font-semibold text-sky-400 uppercase tracking-wide font-mono">"{textInput}"</p>
-                      </div>
-                      {synapticData && (
+                    {synapticData ? (
+                      <div className="p-4 bg-slate-950/80 border border-[#1e1e2d]/60 rounded-2xl space-y-3 relative overflow-hidden">
+                        <div className="absolute right-3 top-3 bg-pink-500/10 border border-pink-550/20 text-pink-400 text-[8px] px-1.5 py-0.5 rounded uppercase font-bold tracking-widest leading-none flex items-center gap-1">
+                          <span className="w-1 h-1 rounded-full bg-pink-500 animate-pulse" />
+                          OPERA ATTIVA
+                        </div>
+                        <div>
+                          <h4 className="text-xs text-slate-400 uppercase font-bold tracking-wider">CONCETTO ANALIZZATO</h4>
+                          <p className="text-sm font-semibold text-sky-400 uppercase tracking-wide font-mono">"{textInput}"</p>
+                        </div>
                         <div className="pt-4 border-t border-[#1e1e2d]/60 space-y-2">
                           <span className="text-[10px] text-pink-400 uppercase font-black tracking-widest block">SINTESI POETICA</span>
                           <div className="py-2 text-base md:text-lg font-medium text-slate-100 leading-relaxed border-l-2 border-pink-500/50 pl-3">
@@ -890,8 +904,13 @@ export default function App() {
                             />
                           </div>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-slate-950/80 border border-[#1e1e2d]/60 rounded-2xl space-y-3 text-center">
+                        <p className="text-slate-400 text-sm font-mono mt-2">Nessuna opera attualmente in esecuzione.</p>
+                        <p className="text-slate-600 text-xs mt-1">Seleziona un'opera dal registro sottostante o crea una nuova apertura sinaptica.</p>
+                      </div>
+                    )}
 
                     {/* Reset dialogue */}
                     <button
@@ -906,24 +925,26 @@ export default function App() {
                 )}
 
                 {/* Visual real-time metrics telemetry table */}
-                <div className="border-t border-slate-800/40 pt-5 space-y-3 font-mono text-xs">
-                  <span className="font-bold text-slate-500 block uppercase tracking-wider">INDICATORI DI COMPLESSITÀ COGNITIVA</span>
-                  <div className="grid grid-cols-2 gap-3 bg-slate-950/40 p-3 rounded-xl border border-slate-900">
-                    <div className="space-y-1 border-r border-slate-900 pr-2">
-                      <div className="text-slate-500 uppercase">INDICE COMPLESSITÀ</div>
-                      <div className="font-bold text-slate-300 flex items-center gap-1.5">
-                        <Activity className="w-3 h-3 text-sky-400" />
-                        {activeComplexity.toFixed(4)} Hz
+                {(activeState === "INTERAZIONE" || synapticData) && (
+                  <div className="border-t border-slate-800/40 pt-5 space-y-3 font-mono text-xs">
+                    <span className="font-bold text-slate-500 block uppercase tracking-wider">INDICATORI DI COMPLESSITÀ COGNITIVA</span>
+                    <div className="grid grid-cols-2 gap-3 bg-slate-950/40 p-3 rounded-xl border border-slate-900">
+                      <div className="space-y-1 border-r border-slate-900 pr-2">
+                        <div className="text-slate-500 uppercase">INDICE COMPLESSITÀ</div>
+                        <div className="font-bold text-slate-300 flex items-center gap-1.5">
+                          <Activity className="w-3 h-3 text-sky-400" />
+                          {activeComplexity.toFixed(4)} Hz
+                        </div>
                       </div>
-                    </div>
-                    <div className="space-y-1 pl-1">
-                      <div className="text-slate-500 font-mono uppercase">DISSONANZA (GLITCH)</div>
-                      <div className="font-bold text-pink-400 uppercase">
-                        {activeGlitch > 0.4 ? "ANOMALIA RILEVANTE" : "CONGRUA"} ({Math.round(activeGlitch * 100)}%)
+                      <div className="space-y-1 pl-1">
+                        <div className="text-slate-500 font-mono uppercase">DISSONANZA (GLITCH)</div>
+                        <div className="font-bold text-pink-400 uppercase">
+                          {activeGlitch > 0.4 ? "ANOMALIA RILEVANTE" : "CONGRUA"} ({Math.round(activeGlitch * 100)}%)
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
 
               </div>
 
@@ -969,7 +990,9 @@ export default function App() {
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
-                            setRecords(prev => prev.filter(r => r.id !== rec.id));
+                            const newRecords = records.filter(r => r.id !== rec.id);
+                            setRecords(newRecords);
+                            saveRecordsToStorage(newRecords);
                           }}
                           className="p-2 border border-slate-850 bg-slate-950/40 hover:bg-red-900/30 hover:border-red-900 hover:text-red-400 rounded-xl transition-all cursor-pointer flex items-center justify-center shrink-0"
                           title="Elimina record"
@@ -1026,12 +1049,6 @@ export default function App() {
                       </div>
 
                       {/* If "INTERAZIONE" and empty input, show gorgeous quick instructions */}
-                      {activeState === "INTERAZIONE" && textInput.length === 0 && (
-                        <div className="absolute inset-x-4 bottom-5 p-3 bg-[#0d0e15]/90 rounded-xl border border-slate-900 text-center font-mono text-[9px] text-slate-400 pointer-events-none space-y-1 select-none">
-                          <p className="font-semibold text-pink-405 tracking-wider">RETE SINAPTICA REALE</p>
-                          <p className="text-[8px] text-slate-500 lowercase leading-relaxed">Inserisci il primo concetto per plasmare gli emisferi</p>
-                        </div>
-                      )}
 
                       {/* Floating Download Button in REPERTO state */}
                       {activeState === "REPERTO" && isSharedScan && (

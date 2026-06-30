@@ -53,7 +53,6 @@ export default function SynapticCanvas({
     // Orbit Rotations (made faster and more dynamic for organic life-like aesthetic)
     let rotX = 0;
     let rotY = 0;
-    let zoomFactor = 1.0;
     let isDragging = false;
     let prevMouseX = 0;
     let prevMouseY = 0;
@@ -166,7 +165,7 @@ export default function SynapticCanvas({
         const radiusScale = isRepertoState ? 0.44 : 0.26;
         const baseRadius = Math.min(currentWidth, currentHeight) * radiusScale;
         const maxRadius = isRepertoState ? 340 : 136;
-        sphereRadius = Math.max(80, Math.min(maxRadius, baseRadius)) * zoomFactor;
+        sphereRadius = Math.max(80, Math.min(maxRadius, baseRadius));
 
         // Apply a solid opaque blend layer using a full-screen polygon
         // to prevent OS/browser GPU compositor alpha flickering, while retaining beautiful trails.
@@ -205,9 +204,9 @@ export default function SynapticCanvas({
             }
           }
           
-          const speedMultiplier = 0.4 + (complexity * 0.1) + (alpha * 0.05); // Slower, calmer rotation
-          const activeSpeedX = (0.0005 + (textVelocityX / Math.max(1, textInput.length)) + (alpha * 0.001)) * speedMultiplier;
-          const activeSpeedY = (0.0008 + (textVelocityY / Math.max(1, textInput.length)) + (beta * 0.0008)) * speedMultiplier;
+          const speedMultiplier = 0.05 + (complexity * 0.02); // Slower, calmer rotation
+          const activeSpeedX = (0.0001 + (textVelocityX / Math.max(1, textInput.length)) + (alpha * 0.0002)) * speedMultiplier;
+          const activeSpeedY = (0.0002 + (textVelocityY / Math.max(1, textInput.length)) + (beta * 0.0002)) * speedMultiplier;
 
           // Interpolate the actual rotation velocity
           const currentSpeedX = p.lerp(idleSpeedX, activeSpeedX, transitionProgress);
@@ -534,22 +533,6 @@ export default function SynapticCanvas({
             let zRotated = synX * sinRotY + synZ * cosRotY;
             let yRotated = synY * cosRotX - zRotated * sinRotX;
             let zFinal = synY * sinRotX + zRotated * cosRotX;
-
-            // SPECIAL FEATURE: Interactive Gravitational Mind Warp (Push/Pull Ripple on cursor proximity)
-            const targetMouseX = p.mouseX - currentWidth / 2;
-            const targetMouseY = p.mouseY - currentHeight / 2;
-            // Only apply deformation if there's actual data/result
-            if (synapticData && transitionProgress > 0.1 && p.mouseX >= 0 && p.mouseX <= currentWidth && p.mouseY >= 0 && p.mouseY <= currentHeight) {
-              const distanceToCursor = p.dist(xRotated, yRotated, targetMouseX, targetMouseY);
-              if (distanceToCursor < 110) {
-                const force = p.map(distanceToCursor, 0, 110, 32, 0) * transitionProgress;
-                const angleToCursor = p.atan2(yRotated - targetMouseY, xRotated - targetMouseX);
-                // Magnetic structural repel/attract depending on alpha/beta balance
-                const dirFactor = alpha > beta ? 1.0 : -0.8;
-                xRotated += p.cos(angleToCursor) * force * dirFactor;
-                yRotated += p.sin(angleToCursor) * force * dirFactor;
-              }
-            }
 
             // Depth color calculation: Clear Physical Hemispheres Split!
             let finalColorR = 90;
