@@ -275,8 +275,8 @@ export default function SynapticArtFrame({
     ctx.stroke();
 
     // Poetic custom text wrap
-    const cleanPoeticText = (poeticText || "").trim().toUpperCase() || "INTERCONNESSIONI COMPLETATE";
-    ctx.font = "italic 8.5px 'JetBrains Mono', monospace";
+    const cleanPoeticText = (poeticText || "").trim() || "Interconnessioni completate";
+    ctx.font = "italic 9.5px 'Playfair Display', serif";
     ctx.fillStyle = "#ec4899";
     const lines = wrapText(ctx, cleanPoeticText, width - 40);
     lines.slice(0, 4).forEach((line, index) => {

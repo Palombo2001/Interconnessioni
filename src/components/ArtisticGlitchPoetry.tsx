@@ -9,7 +9,7 @@ interface ArtisticGlitchPoetryProps {
 export const ArtisticGlitchPoetry: React.FC<ArtisticGlitchPoetryProps> = ({
   text,
   glitchFactor,
-  fontClass = "font-sans text-xs sm:text-sm md:text-base font-medium",
+  fontClass = "font-sans text-xs sm:text-sm md:text-base font-normal",
 }) => {
   if (!text) return null;
 

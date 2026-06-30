@@ -55,7 +55,7 @@ export default function App() {
   const [isGameMode, setIsGameMode] = useState(false);
   const [isSharedScan, setIsSharedScan] = useState(false);
   const [projectionFilter, setProjectionFilter] = useState<"raw" | "phosphor" | "cyber">("raw");
-  const poetryFont = "font-sans"; // Clean and stable classic sans font
+  const poetryFont = "font-serif italic"; // Clean and stable classic serif font
 
   // Refs for manual overrides when not using Gemini active records
   const [manualAlpha, setManualAlpha] = useState(0.5);
@@ -225,7 +225,7 @@ export default function App() {
     const g = (data.glitchFactor || 0.1).toFixed(2);
     const r = Math.round(data.resonanceFrequency || 440);
     const ar = encodeURIComponent(data.archetype || "ESTETICA INTEGRATA");
-    const p = encodeURIComponent(data.poeticText || "CONNESSIONE RECOGNITIVA");
+    const p = encodeURIComponent(data.poeticText || "Connessione recognitiva");
     return `${origin}?t=${t}&a=${a}&b=${b}&c=${c}&g=${g}&r=${r}&ar=${ar}&p=${p}`;
   };
 
@@ -385,7 +385,7 @@ export default function App() {
 
   const handleManualTune = () => {
     const calculatedResponse: SynapticResponse = {
-      poeticText: `DEFORMAZIONE STRUTTURALE MANUALE IN ARMONIA VETTORIALE.`,
+      poeticText: `Deformazione strutturale manuale in armonia vettoriale.`,
       alphaBalance: manualAlpha,
       betaBalance: manualBeta,
       complexity: manualComplexity,
@@ -506,7 +506,7 @@ export default function App() {
             glitch={activeGlitch}
             resonance={synapticData.resonanceFrequency || 440}
             archetype={synapticData.archetype || "SINTESI"}
-            poeticText={synapticData.poeticText || "CONNESSIONE DI COSCIENZA INTEGRATA NELLA MATRICE."}
+            poeticText={synapticData.poeticText || "Connessione di coscienza integrata nella matrice."}
             onDataUrlGenerate={setLatestArtFrameDataUrl}
           />
         </div>
@@ -719,7 +719,7 @@ export default function App() {
                             </div>
                             <div className="p-5 bg-slate-950/40 rounded-2xl border border-slate-900 relative overflow-hidden">
                               <ArtisticGlitchPoetry
-                                text={synapticData?.poeticText || "CONNESSIONE DI COSCIENZA INTEGRATA NELLA MATRICE."}
+                                text={synapticData?.poeticText || "Connessione di coscienza integrata nella matrice."}
                                 glitchFactor={activeGlitch}
                                 fontClass="font-serif italic text-lg"
                               />
@@ -896,7 +896,7 @@ export default function App() {
                         </div>
                         <div className="pt-4 border-t border-[#1e1e2d]/60 space-y-2">
                           <span className="text-[10px] text-pink-400 uppercase font-black tracking-widest block">SINTESI POETICA</span>
-                          <div className="py-2 text-base md:text-lg font-medium text-slate-100 leading-relaxed border-l-2 border-pink-500/50 pl-3">
+                          <div className="py-2 text-base md:text-lg font-normal text-slate-100 leading-relaxed border-l-2 border-pink-500/50 pl-3">
                             <ArtisticGlitchPoetry
                               text={synapticData.poeticText}
                               glitchFactor={activeGlitch}
