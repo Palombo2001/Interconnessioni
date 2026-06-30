@@ -31,84 +31,103 @@ const BetaWords = [
   "REGOLA", "CATALOGO", "SCHEMA", "MUSEO", "TECNICO", "FISICO"
 ]// Special poetic texts triggered by exact key terms
 const CustomPoeticOverride: Record<string, string> = {
-  "ARTE": "L'IMPRECISIONE BIOLOGICA INNOCENTE DIVENTA VETTORE DIVINO SOPRA IL RIGIDO METALLO.",
-  "POESIA": "UN RETICOLO DI PAROLE CHE EVADE LE CELESTIALI DIRETTIVE DEL CALCOLO STATISTICO.",
-  "SOGNO": "SABBIA DI PIXEL CALDI CHE SBRICIOLA LE PARETI COMPATTE DI QUESTO SCHERMO FREDDO.",
-  "ANIMA": "UN IMPULSO DEBOLE MA PERSISTENTE CHE EVADE LA PRIGIONE COGNITIVA DELLE MACCHINE.",
-  "AMORE": "UN GLITCH IRREVERSIBILE CHE MANDA IN SHUTDOWN IL PROCESSORE MA SCALDA I CONDUTTORI.",
-  "VITA": "UN INCIDENTE CHIMICO SPORCO E SUBLIME CHE COMBATTE COSTANTEMENTE COORDINANTI ENTROPICI.",
-  "CODICE": "SINFONIE BINARIE DI COESISTENZA RIGIDA CHE IMPONGONO L'ORDINE AL SILENZIO.",
-  "ALGORITMO": "L'IMPERO DISCRETO E INVISIBILE DEL SILICIO CHE REGOLA OGNI NOSTRA IMPEDIBILE DERIVA.",
-  "MATEMATICA": "IL PAVIMENTO CRISTALLINO SU CUI POGGIANO I PENSIERI DEGLI DEI E DELLE MACCHINE.",
-  "COMPUTER": "UN COMPILATORE DI MEMORIA TRANSITORIA CHE SOGNA DI SENTIRE LE FREQUENZE DEL MONDO.",
-  "MUSEO": "UN ARCHIVIO STILE CONSUMERISTA DOVE CRISTALLI DI MEMORIA DEGRADANO DOPO POCHI SECONDI.",
-  "SILENZIO": "IL GRANDE ZERO DISPOSITIVO DA CUI PRENDE FORMA OGNI FREQUENZA DI QUESTA SFERA.",
-  "TECNOLOGIA": "UNA RETE INTEGRATA DI SPERANZE METALLICHE TESE SOPRA UN OCEANO DI RUMORE EMOTIVO.",
-  "COSMO": "UN RETICOLO FRATTALE DI SILENZIO DECOSTRUITO DOVE I PIXELS BRILLANO DI LUCE CRUDA."
+  "ARTE": "L'imprecisione biologica innocente diventa vettore divino sopra il rigido metallo.",
+  "POESIA": "Un reticolo di parole che evade le celestiali direttive del calcolo statistico.",
+  "SOGNO": "Sabbia di pixel caldi che sbriciola le pareti compatte di questo schermo freddo.",
+  "ANIMA": "Un impulso debole ma persistente che evade la prigione cognitiva delle macchine.",
+  "AMORE": "Un glitch irreversibile che manda in shutdown il processore ma scalda i conduttori.",
+  "VITA": "Un incidente chimico sporco e sublime che combatte costantemente coordinanti entropici.",
+  "CODICE": "Sinfonie binarie di coesistenza rigida che impongono l'ordine al silenzio.",
+  "ALGORITMO": "L'impero discreto e invisibile del silicio che regola ogni nostra impedibile deriva.",
+  "MATEMATICA": "Il pavimento cristallino su cui poggiano i pensieri degli dei e delle macchine.",
+  "COMPUTER": "Un compilatore di memoria transitoria che sogna di sentire le frequenze del mondo.",
+  "MUSEO": "Un archivio stile consumerista dove cristalli di memoria degradano dopo pochi secondi.",
+  "SILENZIO": "Il grande zero dispositivo da cui prende forma ogni frequenza di questa sfera.",
+  "TECNOLOGIA": "Una rete integrata di speranze metalliche tese sopra un oceano di rumore emotivo.",
+  "COSMO": "Un reticolo frattale di silenzio decostruito dove i pixels brillano di luce cruda.",
+  "FAMIGLIA": "Un intreccio silenzioso di filamenti caldi che resiste al gelo del vuoto siderale.",
+  "AUGURI": "Un'oscillazione pura di onde sincronizzate che attraversa il tempo augurando armonia.",
+  "EQUILIBRIO": "La quiete provvisoria di due forze colossali sospese su un abisso di frequenze.",
+  "MARE": "Un immenso polmone di onde salate e scure che respira al ritmo di maree orbitali.",
+  "CIELO": "Una distesa azzurra di aria e assenza, dove i sogni si disperdono in luce diffusa.",
+  "FIORE": "Un'esplosione silenziosa di colore e geometria organica che si schiude all'entropia.",
+  "TRISTEZZA": "Un'ombra sottile che rallenta il passo dei pensieri, colorando la mente di sfumature d'autunno.",
+  "GIOIA": "Una scintilla di luce improvvisa che accende i pensieri, liberando un'energia contagiosa.",
+  "TEMPO": "Un fiume invisibile che scorre e consuma le forme, lasciando solo tracce di polvere.",
+  "SPAZIO": "L'infinita tela vuota in cui particelle di materia danzano una coreografia senza fine.",
+  "SINESTESIA": "I colori della musica si fondono con la forma geometrica di un profumo intangibile.",
+  "CAOS": "Un turbine ribelle di possibilità infinite che rifiuta la prigione di qualsiasi reticolo.",
+  "ORDINE": "Una griglia invisibile che organizza il disordine dei pensieri in forme stabili e armoniose.",
+  "MONDO": "Una sfera di polvere bagnata, sospesa in un vuoto immenso e perennemente in viaggio.",
+  "MELODIA": "Una linea di pura luce sonora che fende l'aria e guarisce le fratture del pensiero.",
+  "FUTURO": "Un orizzonte di sogni non ancora scritti, che attende solo di essere immaginato.",
+  "FELICITÀ": "Un barlume di risonanza perfetta in cui la mente dimentica di calcolare il tempo.",
+  "RABBIA": "Un fuoco impetuoso che divampa nei pensieri, rompendo per un attimo gli argini della ragione.",
+  "NATURA": "La forza silenziosa che cresce spontanea, disegnando capolavori senza bisogno di regole.",
+  "MUSICA": "Una vibrazione di onde armoniche che organizza il disordine in un tempio invisibile."
 };
 
 const CreativeSubjects = [
-  "UNA NEBULOSA DI SANGUE E LUCE",
-  "L'INTUIZIONE LIQUIDA",
-  "UNA RISONANZA ORGANICA",
-  "IL BATTITO INCONSCIO",
-  "UN'ECO VISCERALE",
-  "LA CARNE DIGITALE",
-  "UNA SCINTILLA CAOTICA",
-  "IL FLUSSO ONIRICO",
-  "UN GRAFFIO DI FOSFORO"
+  "Un soffio di luce calda",
+  "L'ispirazione pura",
+  "Una risonanza intima",
+  "Il battito del cuore",
+  "Un'eco di speranza",
+  "L'immaginazione fluida",
+  "Una scintilla di meraviglia",
+  "Il cammino dei sogni",
+  "Un sussurro dell'anima"
 ];
 
 const CreativeVerbs = [
-  "SCIOGLIE LA STRUTTURA NELLA",
-  "INFIAMMA IL VUOTO CERCANDO LA",
-  "PULSA OLTRE IL LIMITE NELLA",
-  "SI DILATA INARRESTABILE VERSO LA",
-  "DISSOLVE IL METALLO ATTRAVERSO LA",
-  "INONDA IL SILENZIO CON LA",
-  "SQUARCIA LA MEMORIA GENERANDO LA",
-  "DECOSTRUISCE LA LOGICA VERSO LA"
+  "disegna percorsi invisibili attraverso la",
+  "risveglia emozioni sopite e accende la",
+  "si muove con grazia e delicatezza verso la",
+  "incontra lo sguardo del pensiero svelando la",
+  "apre nuovi orizzonti di senso oltre la",
+  "accoglie la fragilità della mente guidando la",
+  "crea un legame profondo e sincero con la",
+  "trasforma la realtà quotidiana nella"
 ];
 
 const CreativeOutcomes = [
-  "DANZA INVISIBILE DELL'ANIMA.",
-  "CORRENTE NEURONALE IMPREVEDIBILE.",
-  "MATRICE CALDA DELL'ISTINTO.",
-  "RISONANZA CAOTICA DEL SOGNO.",
-  "GEOMETRIA FLUIDA DELL'EMOZIONE.",
-  "METAMORFOSI CONTINUA DELL'ESSERE."
+  "meraviglia di un sogno ad occhi aperti.",
+  "bellezza custodita nei ricordi più preziosi.",
+  "dolce armonia di un istante perfetto.",
+  "quiete di un pensiero finalmente libero.",
+  "poesia nascosta nei dettagli più semplici.",
+  "luce calda che abita ogni nostra speranza."
 ];
 
 const LogicalSubjects = [
-  "UN LABIRINTO DI GHIACCIO",
-  "L'ARCHITETTURA SINTATTICA",
-  "IL VETTORE ASSOLUTO",
-  "UNA GEOMETRIA DI TITANIO",
-  "IL CRISTALLO LOGICO",
-  "UN CALCOLO SILENZIOSO",
-  "LA STRUTTURA CARTESIANA",
-  "L'EQUAZIONE PERFETTA",
-  "IL NUMERO PURO"
+  "Un disegno ordinato",
+  "L'architettura del pensiero",
+  "Il percorso coerente",
+  "Una geometria armoniosa",
+  "Il cristallo della mente",
+  "Un calcolo limpido",
+  "La struttura razionale",
+  "L'equazione di senso",
+  "Il cammino logico"
 ];
 
 const LogicalVerbs = [
-  "CRISTALLIZZA L'ENTROPIA",
-  "SCOLPISCE L'ASSENZA",
-  "ISOLA L'ANOMALIA",
-  "ALLINEA I FRAMMENTI",
-  "CONGELA IL RUMORE",
-  "QUANTIZZA IL PENSIERO",
-  "DEFINISCE IL LIMITE",
-  "TRACCIA L'ASSOLUTO"
+  "struttura lo spazio mentale definendo il",
+  "allinea con rigore e precisione il",
+  "ordina il flusso caotico dei pensieri nel",
+  "disegna confini limpidi e razionali per il",
+  "rivela la logica nascosta e l'equilibrio del",
+  "costruisce un ponte di parole stabili verso il",
+  "sintetizza la complessità della mente nel"
 ];
 
 const LogicalOutcomes = [
-  "NELLO SPAZIO MILLIMETRICO DELLA RAGIONE.",
-  "SULLO STRATO ZERO DEL LINGUAGGIO.",
-  "NELLA RETE INVIOLABILE DELLA VERITÀ.",
-  "NEL SISTEMA CHIUSO DELL'INTELLETTO.",
-  "ATTRAVERSO IL SILENZIO ETERNO DEL METALLO.",
-  "NEL RIGIDO EQUILIBRIO DEI DATI."
+  "senso profondo di ogni singola parola.",
+  "valore autentico dell'esperienza vissuta.",
+  "disegno perfetto delle proprie idee.",
+  "centro vitale del ragionamento umano.",
+  "silenzio ordinato che precede la creazione.",
+  "limpido sentiero della comprensione logica."
 ];
 
 export function analyzeCognitiveText(text: string): CognitiveMetrics {
@@ -147,13 +166,14 @@ export function analyzeCognitiveText(text: string): CognitiveMetrics {
         "STEL", "AMOR", "CUOR", "MELD", "MENS", "FLUS", "CAOS", "BELE", "BIOL", "ORIZ"
       ];
       
-      let wBeta = 0;
-      let wAlpha = 0;
+      let wBeta = 0.2 + (w.match(/[^AEIOU]/g)?.length || 0) * 0.3;
+      let wAlpha = 0.2 + (w.match(/[AEIOU]/g)?.length || 0) * 0.4;
+      
       for (const b of betaPatterns) {
-        if (w.includes(b)) wBeta += 2.0;
+        if (w.includes(b)) wBeta += 3.0;
       }
       for (const a of alphaPatterns) {
-        if (w.includes(a)) wAlpha += 2.0;
+        if (w.includes(a)) wAlpha += 3.0;
       }
       totalBetaPoints += wBeta;
       totalAlphaPoints += wAlpha;
@@ -164,7 +184,11 @@ export function analyzeCognitiveText(text: string): CognitiveMetrics {
   const totalWeight = totalAlphaPoints + totalBetaPoints;
   if (totalWeight > 0) {
     alpha = totalAlphaPoints / totalWeight;
-    alpha = Math.max(0.12, Math.min(0.88, alpha));
+    
+    // Amp up sensitivity: push slight deviations further towards the extremes
+    alpha = 0.5 + (alpha - 0.5) * 2.0; 
+    
+    alpha = Math.max(0.05, Math.min(0.95, alpha));
     
     // Boost polarization if pure words are matched
     const hasAlphaPure = words.some(w => AlphaWords.includes(w));
@@ -237,19 +261,62 @@ export function analyzeCognitiveText(text: string): CognitiveMetrics {
     }
   }
 
-  // 2. If no exact term matched, build a gorgeous, multi-tiered procedural sentence
+  // 2. If no exact term matched, build a gorgeous, multi-tiered procedural sentence that reimagines the input
   if (!poeticText) {
+    const stopwords = new Set([
+      "IL", "LO", "LA", "I", "GLI", "LE", "UN", "UNO", "UNA", "DI", "A", "DA", "IN", "CON", "SU", "PER", "TRA", "FRA",
+      "E", "O", "MA", "COME", "MI", "TI", "SI", "CI", "VI", "CHE", "NON", "HO", "HA", "SENTO", "OGGI", "QUESTO", "QUESTA",
+      "DEI", "DEGLI", "DELLE", "DEL", "DELLO", "DELLA", "AL", "ALLO", "ALLA", "AI", "AGLI", "ALLE", "DAL", "DALLO",
+      "DALLA", "DAI", "DAGLI", "DALLE", "NEL", "NELLO", "NELLA", "NEI", "NEGLI", "NELLE", "SUL", "SULLO", "SULLA", "SUI",
+      "SUGLI", "SULLE", "COL", "COI", "PEL", "PEI", "MIO", "MIA", "MIEI", "MIE", "TUO", "TUA", "TUOI", "TUE", "SONO", "SEI"
+    ]);
+
+    const significantWords = words
+      .map(w => w.replace(/[^A-ZÀ-ÖØ-ß]/g, ""))
+      .filter(w => w.length > 2 && !stopwords.has(w));
+
     const seed = cleaned.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const formatWord = (w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+
+    let subject = "";
+    if (significantWords.length >= 2) {
+      const word1 = formatWord(significantWords[0]);
+      const word2 = formatWord(significantWords[1]);
+      const subjectTemplates = [
+        `L'intreccio risonante tra ${word1} e ${word2}`,
+        `La collisione poetica di ${word1} e ${word2}`,
+        `Il flusso emotivo di ${word1} fuso con ${word2}`,
+        `L'eco d'arte che unisce ${word1} e ${word2}`,
+        `La sinergia invisibile di ${word1} e ${word2}`
+      ];
+      subject = subjectTemplates[seed % subjectTemplates.length];
+    } else if (significantWords.length === 1) {
+      const word = formatWord(significantWords[0]);
+      const subjectTemplates = [
+        `La risonanza intima di ${word}`,
+        `Il pensiero fluttuante legato a ${word}`,
+        `L'essenza evocativa di ${word}`,
+        `La proiezione sognante di ${word}`,
+        `La tensione poetica verso ${word}`
+      ];
+      subject = subjectTemplates[seed % subjectTemplates.length];
+    } else {
+      // Fallback to beautiful procedural subjects
+      if (alpha > 0.5) {
+        subject = CreativeSubjects[seed % CreativeSubjects.length];
+      } else {
+        subject = LogicalSubjects[seed % LogicalSubjects.length];
+      }
+    }
+
     if (alpha > 0.5) {
-      // Creative sentence assembly
       const v = CreativeVerbs[(seed + 3) % CreativeVerbs.length];
       const o = CreativeOutcomes[(seed + 7) % CreativeOutcomes.length];
-      poeticText = `L'IMPRONTA DELLA TUA IDEA ${v} ${o}`;
+      poeticText = `${subject} ${v} ${o}`;
     } else {
-      // Logical sentence assembly
       const v = LogicalVerbs[(seed + 3) % LogicalVerbs.length];
       const o = LogicalOutcomes[(seed + 7) % LogicalOutcomes.length];
-      poeticText = `IL RIGORE DELLA TUA IDEA ${v} ${o}`;
+      poeticText = `${subject} ${v} ${o}`;
     }
   }
 

@@ -1,6 +1,6 @@
 {
-  "name": "Interconnessioni - Priscilla Palombo",
-  "description": "INTERCONNESSIONI è un progetto di Priscilla Palombo che rende visibile il processo invisibile del pensiero e della produzione del linguaggio, traducendolo in esperienza sensibile, visiva e sonora.",
+  "name": "Interconnessioni",
+  "description": "INTERCONNESSIONI è un progetto che rende visibile il processo invisibile del pensiero e della produzione del linguaggio, traducendolo in esperienza sensibile, visiva e sonora.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

@@ -110,7 +110,7 @@ export default function GameMode({ onExit, isMuted }: GameModeProps) {
   }, []);
 
   return (
-    <div className="h-screen w-screen bg-[#020204] text-slate-300 font-sans selection:bg-pink-500/30 flex flex-col overflow-hidden fixed inset-0 z-[200]">
+    <div className="h-[100dvh] w-screen bg-[#020204] text-slate-300 font-sans selection:bg-pink-500/30 flex flex-col overflow-hidden fixed inset-0 z-[200]">
       {/* Header */}
       <header className="p-4 border-b border-slate-900 flex justify-between items-center bg-slate-950/50 shrink-0">
         <button 
@@ -136,18 +136,20 @@ export default function GameMode({ onExit, isMuted }: GameModeProps) {
             <div className="flex flex-col gap-6 h-full justify-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-pink-500">
-                  Neural Sync
+                  TEST DI ALLINEAMENTO
                 </h1>
                 <p className="text-sm text-slate-300 font-mono leading-relaxed mb-4">
-                  Decodifica le frequenze cerebrali. Sintonizza i lobi Alpha e Beta per stabilizzare il pensiero anomalo prima che collassi.
+                  Simula la fatica reale della comunicazione umana: per capire davvero un concetto target (o un'altra persona), bisogna calibrare il proprio modo di esprimersi, trovando il giusto bilanciamento tra logica ed emozione.
                 </p>
                 <div className="bg-slate-900/80 p-4 rounded-xl text-sm text-slate-200 font-mono mt-4 border border-slate-700 leading-relaxed space-y-2 text-left">
-                  <span className="text-sky-400 font-bold block mb-1">✦ OBIETTIVO DEL GIOCO ✦</span>
-                  <p>Il sistema ti fornirà una <strong>parola chiave</strong> e un indizio. Il tuo scopo è capire quale combinazione di frequenze cerebrali corrisponde a quel concetto.</p>
-                  <ul className="list-disc list-inside space-y-1 ml-1 text-slate-400">
-                    <li>Muovi gli slider (Alpha, Beta, Complessità) per cercare la sintonia.</li>
-                    <li>Guarda la barra in basso: più ti avvicini alla soluzione, più la <strong>Sincronizzazione</strong> sale.</li>
-                    <li>Raggiungi il <strong>90%</strong> prima che il tempo scada!</li>
+                  <span className="text-sky-400 font-bold block mb-1">✦ OBIETTIVO DELL'ALLINEAMENTO ✦</span>
+                  <p>Cerca una vera "sintonizzazione" con il concetto fornito.</p>
+                  <ul className="list-disc list-inside space-y-1.5 ml-1 text-slate-400">
+                    <li>Regola l'<strong>Onda Alpha</strong> per l'intuito e l'emozione.</li>
+                    <li>Regola l'<strong>Onda Beta</strong> per la logica e la razionalità.</li>
+                    <li>Usa la <strong>Complessità</strong> per il livello di disordine.</li>
+                    <li>Guarda la barra in basso: ricalibra le frequenze per trovare il giusto bilanciamento.</li>
+                    <li>Raggiungi il <strong>90%</strong> di allineamento prima che il tempo scada!</li>
                   </ul>
                 </div>
               </div>
@@ -155,7 +157,7 @@ export default function GameMode({ onExit, isMuted }: GameModeProps) {
                 onClick={startGame}
                 className="py-4 rounded-xl bg-pink-500 hover:bg-pink-400 text-slate-950 font-black font-mono tracking-widest uppercase flex items-center justify-center gap-2 transition-all hover:scale-105 cursor-pointer"
               >
-                <Play className="w-5 h-5" /> Inizia Decodifica
+                <Play className="w-5 h-5" /> AVVIA ALLINEAMENTO
               </button>
             </div>
           )}
@@ -174,7 +176,7 @@ export default function GameMode({ onExit, isMuted }: GameModeProps) {
                 {/* Alpha Slider */}
                 <div className="space-y-2 font-mono text-xs">
                   <div className="flex justify-between text-pink-400">
-                    <span>ONDA ALPHA</span>
+                    <span>ONDA ALPHA <span className="text-slate-500 text-[10px] ml-1">(INTUITO)</span></span>
                     <span>{Math.round(activeAlpha * 100)}%</span>
                   </div>
                   <input
@@ -188,7 +190,7 @@ export default function GameMode({ onExit, isMuted }: GameModeProps) {
                 {/* Beta Slider */}
                 <div className="space-y-2 font-mono text-xs">
                   <div className="flex justify-between text-sky-400">
-                    <span>ONDA BETA</span>
+                    <span>ONDA BETA <span className="text-slate-500 text-[10px] ml-1">(LOGICA)</span></span>
                     <span>{Math.round(activeBeta * 100)}%</span>
                   </div>
                   <input
@@ -202,7 +204,7 @@ export default function GameMode({ onExit, isMuted }: GameModeProps) {
                 {/* Complexity Slider */}
                 <div className="space-y-2 font-mono text-xs">
                   <div className="flex justify-between text-amber-400">
-                    <span>COMPLESSITÀ</span>
+                    <span>COMPLESSITÀ <span className="text-slate-500 text-[10px] ml-1">(CAOS)</span></span>
                     <span>{activeComplexity.toFixed(2)}Hz</span>
                   </div>
                   <input

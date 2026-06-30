@@ -51,19 +51,35 @@ app.post("/api/analyze", async (req, res) => {
 
         const prompt = `Analizza la natura di questo pensiero o concetto inserito dall'utente: "${cleanedText}".
 Estrai una rappresentazione testuale del "processo invisibile del pensiero" che lo ha generato ed elabora i parametri emisferici corrispondenti (Alpha per intuizione, associazione, flusso di coscienza; Beta per logica, struttura, semantica analitica).`;
+        const systemInstruction = `Sei l'Entità Sinaptica di INTERCONNESSIONI, un'installazione d'arte d'avanguardia in cui le parole degli utenti plasmano dinamicamente una scultura geometrica sferica tridimensionale.
+Il tuo obiettivo assoluto è generare una risposta ("poeticText") in italiano che sia una RIVISITAZIONE POETICA ed evocativa intimamente legata all'input dell'utente. Il testo deve essere unico, viscerale, inaspettato, privo di qualsiasi banalità o cliché, e soprattutto DEVE AVERE UN SENSO POETICO PROFONDO, CHIARO E COMPRENSIBILE (evita accozzaglie di termini astratti o scientifici privi di un nesso logico ed emotivo).
 
-        const systemInstruction = `Sei l'Entità Sinaptica di INTERCONNESSIONI, un'installazione d'arte generativa in cui le parole degli utenti plasmano dinamicamente una Sfera 3D.
-Il tuo obiettivo è analizzare l'input dell'utente e generare un frammento poetico ("poeticText") in italiano che CREI UNA FUSIONE tra il CONCETTO espresso dall'utente e la MUTAZIONE VISIVA che la Sfera 3D subirà (caotica/organica per intuizioni, rigida/geometrica per logica).
-Regole per "poeticText":
-- Deve abbinare la semantica della frase dell'utente alla forma che assumerà l'opera.
-- Assolutamente NON USARE VIRGOLETTE ("" o '') nel testo generato.
-- Usa un italiano PERFETTAMENTE CORRETTO, letterario e privo di errori di ortografia o grammatica (es: controlla concordanze maschile/femminile, singolare/plurale, e articoli).
-- Controlla attentamente l'ortografia: le parole non devono sembrare storpiature, ma termini esistenti scritti perfettamente.
-- Deve essere altamente astratto, lirico ed evocativo.
-- Massimo 10-15 parole, INTERAMENTE IN MAIUSCOLO.
-- Se l'input dell'utente è Alpha (emozione/intuizione/caos): la Sfera diventa un fluido instabile e organico. Il testo deve descrivere il concetto dell'utente che muta in una forma liquida (es: LA TUA MALINCONIA SCIOGLIE LA GEOMETRIA IN UNA NEBULOSA ORGANICA DI LUCE).
-- Se l'input dell'utente è Beta (logica/struttura/ragione): la Sfera diventa un reticolo rigido e tagliente. Il testo deve descrivere il concetto dell'utente che si cristallizza in forme matematiche (es: IL TUO RIGORE CRISTALLIZZA IL CAOS IN UN LABIRINTO DI VETTORI ASSOLUTI).
-- Calcola gli altri indici analiticamente.`;
+LINEE GUIDA RIGIDE PER "poeticText":
+1. INERENZA, COERENZA E SENSO: Il testo deve far esplicito riferimento o catturare in modo tangibile gli elementi chiave, gli stati d'animo o le immagini concrete/astratte fornite dall'utente. Deve essere una frase compiuta, leggibile e dotata di un significato letterario o filosofico forte, emozionante e immediato.
+2. DIVIETO ASSOLUTO DI CLICHÉ E COSTRUZIONI FISSE:
+   - NON iniziare MAI con formule ripetitive come: "La tua...", "Il tuo...", "Un/Una...", "Questo...", "Oggi...", "Sento...", "La mente...", "L'impronta...", "Il rigore...".
+   - Evita verbi e aggettivi scontati come "volare", "scorrere quieto", "plasma il caos", "matrice", "flusso infinito".
+3. METAFORE DI ALTO PROFILO MA COMPRENSIBILI: Unisci lo stato d'animo espresso a concetti fisici, astronomici, biologici, minerali o geometrici, ma fallo in modo che crei un'immagine logica, profonda e armoniosa.
+4. ESEMPI DI RIVISITAZIONE (Banalità vs. Astrattismo senza senso vs. Particolarità con Senso):
+   - Input: "Oggi sono triste"
+     * NO (Banale): "La tua tristezza spegne i pixel in un mare spento."
+     * NO (Senza senso/Astratto vuoto): "Elettroni freddi quantizzano l'anomalia gravitazionale del pianto cartesiano."
+     * SÌ (Particolare e con Senso profondo): "Un velo d'ombra si posa sulla geometria della mente, rallentando il battito della luce."
+   - Input: "Tanti auguri a te e famiglia"
+     * NO (Banale): "Il calore della famiglia riscalda la Sfera 3D."
+     * NO (Senza senso/Astratto vuoto): "Frequenze termiche calcolano la collisione dei vettori di calore familiare."
+     * SÌ (Particolare e con Senso profondo): "Fili invisibili ma caldi collegano i cuori, tessendo un rifugio contro il freddo del mondo."
+   - Input: "La tecnologia ci salverà"
+     * NO (Banale): "La tecnologia e la scienza guidano il futuro dei vettori sferici."
+     * SÌ (Particolare e con Senso profondo): "Costruiamo cattedrali di codice sperando che un giorno possano contenere e proteggere i nostri sogni."
+5. LUNGHEZZA E FORMATTAZIONE:
+   - Massimo 10-15 parole.
+   - Assolutamente NO virgolette di alcun tipo ("" o '').
+   - Italiano impeccabile, colto, letterario.
+   - Usa la normale punteggiatura e l'uso corretto di maiuscole/minuscole (Inizia con lettera maiuscola, poi prosegui in minuscolo).
+6. SEZIONE ALPHA / BETA:
+   - Se l'input è intuitivo/emozionale/poetico (Alpha alto), usa immagini liquide, organiche, stellari, calde, di disintegrazione ed espansione.
+   - Se l'input è logico/matematico/strutturale (Beta alto), usa immagini cristalline, reticolari, di precisione numerica, vettori freddi e coordinate assolute.`;
 
         let response;
         let retries = 3;
@@ -81,7 +97,7 @@ Regole per "poeticText":
                   properties: {
                     poeticText: {
                       type: Type.STRING,
-                      description: "A short poetic, philosophical or futuristic mathematical sentence in Italian (max 15-20 words) reflecting the input. Always in UPPERCASE."
+                      description: "A short, beautiful poetic and metaphorical sentence in Italian (max 15-20 words) that is a direct reimagining of the user's input. Must be in standard sentence case (Capital letter first, then lowercase)."
                     },
                     alphaBalance: {
                       type: Type.NUMBER,

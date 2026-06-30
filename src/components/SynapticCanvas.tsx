@@ -47,16 +47,18 @@ export default function SynapticCanvas({
     // Define coordinates of points
     let points: { dir: p5.Vector; lon: number; lat: number }[] = [];
     let sphereRadius = 145; 
-    const stepResolutionRaggi = 32;
-    const stepResolutionCerchi = 16;
+    const stepResolutionRaggi = 24;
+    const stepResolutionCerchi = 12;
 
     // Orbit Rotations (made faster and more dynamic for organic life-like aesthetic)
     let rotX = 0;
     let rotY = 0;
+    let zoomFactor = 1.0;
     let isDragging = false;
     let prevMouseX = 0;
     let prevMouseY = 0;
     let transitionProgress = 0; // Smooth interpolator between 0 (stasis/idle) and 1 (active/engaged)
+    let activeTime = 0; // Accumulates only when active
     let currentHarmonicFreq = 3.0;
     let currentStepGrid = 10.0;
 
@@ -135,7 +137,7 @@ export default function SynapticCanvas({
           "BETA_DATA_QUANTIZER",
           "STOCHASTIC_DECAY"
         ];
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 20; i++) {
           backgroundLines.push({
             x: p.random(width * 0.05, width * 0.95),
             y: p.random(height * 0.1, height * 0.9),
@@ -164,7 +166,7 @@ export default function SynapticCanvas({
         const radiusScale = isRepertoState ? 0.44 : 0.26;
         const baseRadius = Math.min(currentWidth, currentHeight) * radiusScale;
         const maxRadius = isRepertoState ? 340 : 136;
-        sphereRadius = Math.max(80, Math.min(maxRadius, baseRadius));
+        sphereRadius = Math.max(80, Math.min(maxRadius, baseRadius)) * zoomFactor;
 
         // Apply a solid opaque blend layer using a full-screen polygon
         // to prevent OS/browser GPU compositor alpha flickering, while retaining beautiful trails.
@@ -184,12 +186,13 @@ export default function SynapticCanvas({
         // Butter-smooth transition between States
         const targetProgress = isExperienceActive ? 1.0 : 0.0;
         transitionProgress = p.lerp(transitionProgress, targetProgress, 0.05); // Smooth 5% transition per frame (~0.3 seconds)
+        activeTime += transitionProgress;
 
-        // Dynamic Rotational Velocity (speed bumped up and initialized based on written text characters)
+        // Dynamic Rotational Velocity
         if (!isDragging) {
-          // 1. Idle rotation speed
-          const idleSpeedX = 0.0018 + p.sin(p.frameCount * 0.005) * 0.0003;
-          const idleSpeedY = 0.0024 + p.cos(p.frameCount * 0.004) * 0.0002;
+          // 1. Idle rotation speed - zero (as requested)
+          const idleSpeedX = 0;
+          const idleSpeedY = 0;
 
           // 2. Active rotation speed from typed word
           let textVelocityX = 0;
@@ -197,16 +200,16 @@ export default function SynapticCanvas({
           if (textInput.length > 0) {
             for (let i = 0; i < textInput.length; i++) {
               const code = textInput.charCodeAt(i);
-              textVelocityX += p.sin(code * 1.57 + i * 0.5) * 0.015;
-              textVelocityY += p.cos(code * 2.11 + i * 0.33) * 0.015;
+              textVelocityX += p.sin(code * 1.57 + i * 0.5) * 0.002;
+              textVelocityY += p.cos(code * 2.11 + i * 0.33) * 0.002;
             }
           }
           
-          const speedMultiplier = 1.0 + (complexity * 0.9) + (alpha * 0.4);
-          const activeSpeedX = (0.012 + (textVelocityX / Math.max(1, textInput.length)) + (alpha * 0.015)) * speedMultiplier;
-          const activeSpeedY = (0.016 + (textVelocityY / Math.max(1, textInput.length)) + (beta * 0.012)) * speedMultiplier;
+          const speedMultiplier = 0.4 + (complexity * 0.1) + (alpha * 0.05); // Slower, calmer rotation
+          const activeSpeedX = (0.0005 + (textVelocityX / Math.max(1, textInput.length)) + (alpha * 0.001)) * speedMultiplier;
+          const activeSpeedY = (0.0008 + (textVelocityY / Math.max(1, textInput.length)) + (beta * 0.0008)) * speedMultiplier;
 
-          // Interpolate the actual rotation velocity, producing a perfect liquid accelerate/decelerate feeling
+          // Interpolate the actual rotation velocity
           const currentSpeedX = p.lerp(idleSpeedX, activeSpeedX, transitionProgress);
           const currentSpeedY = p.lerp(idleSpeedY, activeSpeedY, transitionProgress);
 
@@ -233,9 +236,9 @@ export default function SynapticCanvas({
           const isLeft = star.x < currentWidth / 2;
           const starAlpha = 20 + p.sin(p.frameCount * 0.02 + star.y) * 12;
           const starSize = isLeft ? 1.0 : 1.5;
-          const rLine = isLeft ? 14 : 244;
-          const gLine = isLeft ? 165 : 63;
-          const bLine = isLeft ? 233 : 145;
+          const rLine = isLeft ? 10 : 255;
+          const gLine = isLeft ? 220 : 40;
+          const bLine = isLeft ? 255 : 60;
 
           // Gentle ambient stardust nodes
           p.fill(rLine, gLine, bLine, starAlpha * 1.5);
@@ -248,24 +251,9 @@ export default function SynapticCanvas({
           }
         }
 
-        // Draw elegant gallery caliper indicators detailing active brain balance
-        p.stroke(255, 255, 255, 15);
-        p.strokeWeight(0.6);
-        // Vertical side bars
-        p.line(currentWidth * 0.05, currentHeight * 0.1, currentWidth * 0.05, currentHeight * 0.82);
-        p.line(currentWidth * 0.95, currentHeight * 0.1, currentWidth * 0.95, currentHeight * 0.82);
-        
-        // Horizontal caliper caps
-        p.line(currentWidth * 0.05, currentHeight * 0.1, currentWidth * 0.08, currentHeight * 0.1);
-        p.line(currentWidth * 0.05, currentHeight * 0.82, currentWidth * 0.08, currentHeight * 0.82);
-        p.line(currentWidth * 0.95, currentHeight * 0.1, currentWidth * 0.92, currentHeight * 0.1);
-        p.line(currentWidth * 0.95, currentHeight * 0.82, currentWidth * 0.92, currentHeight * 0.82);
-
-        // Architectural typographic details removed to avoid overlapping with the sphere
-
         // Draw split divider lines with subtle pulsing glow (Only during INTERAZIONE state)
         if (activeState === "INTERAZIONE") {
-          p.stroke(255, 255, 255, 6 + p.sin(p.frameCount * 0.05) * 4);
+          p.stroke(255, 255, 255, 6 + p.sin(activeTime * 0.05) * 4);
           p.strokeWeight(1);
           p.line(currentWidth / 2, currentHeight * 0.15, currentWidth / 2, currentHeight * 0.85);
         }
@@ -309,7 +297,7 @@ export default function SynapticCanvas({
           const harmonicFreq = currentHarmonicFreq;
 
           // A. DRAW INNER PULSATING CORE (Bio-Nucleus Seed)
-          const corePulse = p.sin(p.frameCount * 0.06) * 8 + (alpha * 12);
+          const corePulse = p.sin(activeTime * 0.06) * 8 + (alpha * 12);
           const coreRadius = 38 + corePulse;
           p.noFill();
           
@@ -327,7 +315,7 @@ export default function SynapticCanvas({
           p.line(0, -coreRadius - 5, 0, coreRadius + 5);
 
           // Secondary core orbit beads
-          const orbitAngle = p.frameCount * 0.02;
+          const orbitAngle = activeTime * 0.02;
           p.fill(255, 230, 100);
           p.noStroke();
           p.ellipse(p.cos(orbitAngle) * coreRadius, p.sin(orbitAngle) * coreRadius, 5, 5);
@@ -339,24 +327,24 @@ export default function SynapticCanvas({
           p.strokeWeight(0.6);
           p.stroke(244, 63, 145, 60);
           p.push();
-          p.rotate(p.frameCount * 0.008 + (alpha * 2));
+          p.rotate(activeTime * 0.008 + (alpha * 2));
           p.ellipse(0, 0, sphereRadius * 2.5, sphereRadius * 0.82);
           // Ring node bead
           p.fill(244, 63, 145, 200);
           p.noStroke();
-          p.ellipse(p.cos(p.frameCount * 0.02) * (sphereRadius * 1.25), p.sin(p.frameCount * 0.02) * (sphereRadius * 0.41), 5, 5);
+          p.ellipse(p.cos(activeTime * 0.02) * (sphereRadius * 1.25), p.sin(activeTime * 0.02) * (sphereRadius * 0.41), 5, 5);
           p.pop();
 
           // Halo 2: Rationality/Logic (Diagonal tilt)
           p.noFill();
           p.stroke(139, 192, 255, 60);
           p.push();
-          p.rotate(-p.frameCount * 0.012 - (beta * 1.5) + p.QUARTER_PI);
+          p.rotate(-activeTime * 0.012 - (beta * 1.5) + p.QUARTER_PI);
           p.ellipse(0, 0, sphereRadius * 2.3, sphereRadius * 0.6);
           // Ring node bead
           p.fill(139, 192, 255, 200);
           p.noStroke();
-          p.ellipse(p.cos(-p.frameCount * 0.025) * (sphereRadius * 1.15), p.sin(-p.frameCount * 0.025) * (sphereRadius * 0.3), 5, 5);
+          p.ellipse(p.cos(-activeTime * 0.025) * (sphereRadius * 1.15), p.sin(-activeTime * 0.025) * (sphereRadius * 0.3), 5, 5);
           p.pop();
 
           // B2. ORGANIC BRANCHING AXONS & CURVED DENDRITES (Image 2 Style - Glowing Flow Lines)
@@ -367,7 +355,7 @@ export default function SynapticCanvas({
             
             for (let d = 0; d < dendriteCount; d++) {
               // Distribute trajectories evenly in a circle with subtle time-drift orbit
-              const baseAngle = p.map(d, 0, dendriteCount, 0, p.TWO_PI) + (p.frameCount * 0.0025);
+              const baseAngle = p.map(d, 0, dendriteCount, 0, p.TWO_PI) + (activeTime * 0.0025);
               
               p.beginShape();
               const steps = 15;
@@ -376,10 +364,16 @@ export default function SynapticCanvas({
                 // Extend outward up to ~2.2 times the sphere radius
                 const currentDist = stepProgress * (sphereRadius * 2.2);
                 
-                // Perlin Noise-guided wavy motion (highly fluid, like the fine nerve fibers in Image 2)
+                // Alpha = fluid organic noise, Beta = rigid sharp angles
                 const noiseScale = 1.8;
-                const noiseVal = p.noise(d * 15 + p.sin(stepProgress * 1.5), stepProgress * noiseScale - (p.frameCount * 0.012)) - 0.5;
-                const angle = baseAngle + (noiseVal * 1.9 * (0.35 + alpha * 0.65));
+                const noiseVal = p.noise(d * 15 + p.sin(stepProgress * 1.5), stepProgress * noiseScale - (activeTime * 0.012)) - 0.5;
+                
+                // Alpha creates smooth wavy paths. Beta creates straight locked angles
+                const fluidAngle = noiseVal * 2.5 * alpha;
+                // Snap to 45 degree increments for Beta
+                const rigidAngle = Math.round(noiseVal * 8) * (p.QUARTER_PI) * beta * 0.3; 
+                
+                const angle = baseAngle + fluidAngle + rigidAngle;
                 
                 const dx = p.cos(angle) * currentDist;
                 const dy = p.sin(angle) * currentDist;
@@ -391,9 +385,9 @@ export default function SynapticCanvas({
 
                 const totalB = alpha + beta + 0.001;
                 const aRatio = alpha / totalB;
-                const rOuter = 14 + aRatio * (244 - 14);
-                const gOuter = 165 + aRatio * (63 - 165);
-                const bOuter = 233 + aRatio * (145 - 233);
+                const rOuter = 10 + aRatio * (255 - 10);
+                const gOuter = 220 + aRatio * (40 - 220);
+                const bOuter = 255 + aRatio * (60 - 255);
 
                 // Linearly interpolate centers to axon extremity colors
                 const rLine = rCore + stepProgress * (rOuter - rCore);
@@ -443,7 +437,7 @@ export default function SynapticCanvas({
             const pt = points[i];
             
             // 1. Calculate Stasis coordinates (with relaxing organic breathing pulse)
-            const pulse = p.sin(p.frameCount * 0.02 + pt.lat * 3.0) * 0.03;
+            const pulse = p.sin(activeTime * 0.02 + pt.lat * 3.0) * 0.03;
             const pulseFactor = 1.0 + pulse;
             const stasisX = pt.dir.x * sphereRadius * pulseFactor;
             const stasisY = pt.dir.y * sphereRadius * pulseFactor;
@@ -472,14 +466,14 @@ export default function SynapticCanvas({
               let bz = p.lerp(baseOrigZ, roundedZ, beta);
 
               // Apply additional geometric pulsing factor depending on Beta level
-              const betaFactor = 1.0 + p.sin(pt.lat * harmonicFreq + p.frameCount * 0.05) * (beta * 0.28);
+              const betaFactor = 1.0 + p.sin(pt.lat * harmonicFreq + activeTime * 0.05) * (beta * 0.28);
               bx *= betaFactor;
               by *= betaFactor;
               bz *= betaFactor;
 
               // [ALPHA GEOMETRY]: Fluid wave morphing (with dual-octave Perlin-like wave ripples)
-              const octave1 = p.sin(pt.lon * (harmonicFreq + 1.0) + p.frameCount * 0.05) * p.cos(pt.lat * harmonicFreq - p.frameCount * 0.045);
-              const octave2 = p.sin(pt.lon * 3.0 - p.frameCount * 0.09) * p.cos(pt.lat * 4.0 + p.frameCount * 0.075) * 0.45;
+              const octave1 = p.sin(pt.lon * (harmonicFreq + 1.0) + activeTime * 0.05) * p.cos(pt.lat * harmonicFreq - activeTime * 0.045);
+              const octave2 = p.sin(pt.lon * 3.0 - activeTime * 0.09) * p.cos(pt.lat * 4.0 + activeTime * 0.075) * 0.45;
               const waveDistortion = (octave1 + octave2) * (1.0 + glitch * 0.65);
               
               // Wave amplitude is directly and highly sensitive to alpha now, independent of complexity!
@@ -490,7 +484,7 @@ export default function SynapticCanvas({
               let finalZ = bz * waveFactor;
 
               // Apply organic polar twist rotation around Z/Y axis (Squeezes & Twists the sphere like a muscle)
-              const twistAngle = alpha * 0.55 * p.sin(pt.lat * 2.0 + p.frameCount * 0.042);
+              const twistAngle = alpha * 0.55 * p.sin(pt.lat * 2.0 + activeTime * 0.042);
               const cosT = p.cos(twistAngle);
               const sinT = p.sin(twistAngle);
               const tempX = finalX * cosT - finalZ * sinT;
@@ -511,17 +505,17 @@ export default function SynapticCanvas({
                 
                 if (cached.isVowel) {
                   const vowelWaveFreq = cached.checkV5 ? 0.07 : 0.035;
-                  charMutation += p.sin(pt.lat * 5.0 + p.frameCount * vowelWaveFreq) * 0.26 * (cached.val / 122.0);
+                  charMutation += p.sin(pt.lat * 5.0 + activeTime * vowelWaveFreq) * 0.26 * (cached.val / 122.0);
                 } else {
                   const consSlices = (cached.val % 8) + 3;
-                  charMutation += p.cos(pt.lat * consSlices - p.frameCount * 0.045) * 0.18 + p.sin(pt.lon * 4.0) * 0.1;
+                  charMutation += p.cos(pt.lat * consSlices - activeTime * 0.045) * 0.18 + p.sin(pt.lon * 4.0) * 0.1;
                   if (cached.val % 4 === 0) {
                     charMutation *= 1.15;
                   }
                 }
                 
                 if (cached.marker) {
-                  charMutation += p.sin(pt.lat * 10.0 + p.frameCount * 0.02) * 0.35;
+                  charMutation += p.sin(pt.lat * 10.0 + activeTime * 0.02) * 0.35;
                 }
                 
                 activeX *= charMutation;
@@ -544,11 +538,11 @@ export default function SynapticCanvas({
             // SPECIAL FEATURE: Interactive Gravitational Mind Warp (Push/Pull Ripple on cursor proximity)
             const targetMouseX = p.mouseX - currentWidth / 2;
             const targetMouseY = p.mouseY - currentHeight / 2;
-            // Check proximity when mouse is inside canvas
-            if (p.mouseX >= 0 && p.mouseX <= currentWidth && p.mouseY >= 0 && p.mouseY <= currentHeight) {
+            // Only apply deformation if there's actual data/result
+            if (synapticData && transitionProgress > 0.1 && p.mouseX >= 0 && p.mouseX <= currentWidth && p.mouseY >= 0 && p.mouseY <= currentHeight) {
               const distanceToCursor = p.dist(xRotated, yRotated, targetMouseX, targetMouseY);
               if (distanceToCursor < 110) {
-                const force = p.map(distanceToCursor, 0, 110, 32, 0);
+                const force = p.map(distanceToCursor, 0, 110, 32, 0) * transitionProgress;
                 const angleToCursor = p.atan2(yRotated - targetMouseY, xRotated - targetMouseX);
                 // Magnetic structural repel/attract depending on alpha/beta balance
                 const dirFactor = alpha > beta ? 1.0 : -0.8;
@@ -611,7 +605,7 @@ export default function SynapticCanvas({
               }
               
               // Soft, breathing wave intensity
-              const intensity = 0.65 + p.sin(p.frameCount * 0.02 + pt.lat * 2.0) * 0.22;
+              const intensity = 0.65 + p.sin(activeTime * 0.02 + pt.lat * 2.0) * 0.22;
               const depthFade = p.map(zFinal, -sphereRadius, sphereRadius, 0.4, 1.0) * intensity;
               finalColorR = p.constrain(finalColorR * depthFade, 0, 255);
               finalColorG = p.constrain(finalColorG * depthFade, 0, 255);
@@ -619,14 +613,14 @@ export default function SynapticCanvas({
             }
 
             // Electro-glitch flare on noise thresholds
-            const noiseVal = p.noise(pt.dir.x * 2.5, pt.dir.y * 2.5, p.frameCount * 0.05);
+            const noiseVal = p.noise(pt.dir.x * 2.5, pt.dir.y * 2.5, activeTime * 0.05);
             if (glitch > 0.02 && noiseVal < glitch * 0.45) {
               finalColorR = alpha > 0.5 ? 255 : 45;
               finalColorG = 244;
               finalColorB = 255;
               
               // Pulsate normal coordinates outwards elegantly during glitch spark
-              const pulse = p.sin(p.frameCount * 0.15 + pt.lat * 9.0) * (glitch * 42.0);
+              const pulse = p.sin(activeTime * 0.15 + pt.lat * 9.0) * (glitch * 42.0);
               xRotated += pt.dir.x * pulse;
               yRotated += pt.dir.y * pulse;
             }
@@ -643,19 +637,20 @@ export default function SynapticCanvas({
           p.noFill();
           const totalB = alpha + beta + 0.001;
           const aRatio = alpha / totalB;
-          const rBaseRib = 14 + aRatio * (244 - 14);
-          const gBaseRib = 165 + aRatio * (63 - 165);
-          const bBaseRib = 233 + aRatio * (145 - 233);
+          // Beta (cold/cyan/white) vs Alpha (warm/red/magenta)
+          const rBaseRib = 10 + aRatio * (255 - 10);
+          const gBaseRib = 220 + aRatio * (40 - 220);
+          const bBaseRib = 255 + aRatio * (60 - 255);
 
           for (let latIdx = 0; latIdx <= stepResolutionCerchi; latIdx += 2) {
             p.beginShape();
-            const waveShift = p.sin(latIdx * 0.4 + p.frameCount * 0.04) * 0.25 + 0.5;
-            const finalR = rBaseRib + waveShift * (249 - rBaseRib) * 0.15;
-            const finalG = gBaseRib + waveShift * (115 - gBaseRib) * 0.15;
+            const waveShift = p.sin(latIdx * 0.4 + activeTime * 0.04) * 0.25 + 0.5;
+            const finalR = rBaseRib;
+            const finalG = gBaseRib;
             const finalB = bBaseRib;
 
             p.stroke(finalR, finalG, finalB, 65 + (alpha * 85));
-            p.strokeWeight(0.85);
+            p.strokeWeight(1.2);
             
             let firstPt: typeof renderedTransformedPoints[0] | null = null;
             for (let rIdx = 0; rIdx < stepResolutionRaggi; rIdx++) {
@@ -701,7 +696,7 @@ export default function SynapticCanvas({
               // 1. Double concentric halo/glow layers (concentric transparency blur)
               p.noStroke();
               p.fill(r, g, b, cellAlpha * 0.15);
-              p.ellipse(pt3D.x, pt3D.y, 22 + p.sin(p.frameCount * 0.08 + i) * 6, 22 + p.sin(p.frameCount * 0.08 + i) * 6);
+              p.ellipse(pt3D.x, pt3D.y, 22 + p.sin(activeTime * 0.08 + i) * 6, 22 + p.sin(activeTime * 0.08 + i) * 6);
               p.fill(r, g, b, cellAlpha * 0.35);
               p.ellipse(pt3D.x, pt3D.y, 11, 11);
               
@@ -713,7 +708,7 @@ export default function SynapticCanvas({
               p.stroke(r, g, b, cellAlpha * 0.45);
               p.strokeWeight(0.65);
               const spikeCount = 6;
-              const globalAngleOffset = p.frameCount * 0.01;
+              const globalAngleOffset = activeTime * 0.01;
               for (let s = 0; s < spikeCount; s++) {
                 const sAngle = p.map(s, 0, spikeCount, 0, p.TWO_PI) + globalAngleOffset + (p.noise(i, s) * 0.5);
                 const len = (10 + p.noise(i * 1.5, s * 2.2) * 14) * (1.0 + alpha * 0.4);
@@ -793,9 +788,9 @@ export default function SynapticCanvas({
             const speedPhi = (p.random(-0.015, 0.015) + (beta * p.random(-0.01, 0.01)) + (alpha * p.random(0.01, 0.03))) * (1.0 + rotationSpeed * 3.0);
             
             // Interpolate particle color based on alpha/beta balance
-            const rColor = p.lerp(139, 244, alpha);
-            const gColor = p.lerp(192, 63, alpha);
-            const bColor = p.lerp(255, 145, alpha);
+            const rColor = p.lerp(10, 255, alpha);
+            const gColor = p.lerp(220, 20, alpha);
+            const bColor = p.lerp(255, 60, alpha);
             
             trailParticles.push({
               theta: pTheta,
@@ -825,7 +820,7 @@ export default function SynapticCanvas({
             }
             
             // Organic low-frequency wave drift using p5 Noise
-            const noiseAdd = p.noise(tp.phi * 1.8, tp.theta * 1.8, p.frameCount * 0.03) - 0.5;
+            const noiseAdd = p.noise(tp.phi * 1.8, tp.theta * 1.8, activeTime * 0.03) - 0.5;
             tp.phi += noiseAdd * 0.006;
             
             // Convert Spherical to absolute Cartesian 3D coord
@@ -849,7 +844,7 @@ export default function SynapticCanvas({
             // Depth visual attenuation
             const pAlpha = p.map(zFinal, -sphereRadius, sphereRadius, 35, 235) * (tp.life / 255);
             p.stroke(tp.color[0], tp.color[1], tp.color[2], pAlpha);
-            p.strokeWeight(tp.size + p.sin(p.frameCount * 0.12 + i) * 1.0);
+            p.strokeWeight(tp.size + p.sin(activeTime * 0.12 + i) * 1.0);
             p.point(xRotated, yRotated);
             
             // Draw visual lag connectors (scia luminosa line trails with lag)
@@ -881,7 +876,7 @@ export default function SynapticCanvas({
       // Tactile Input Handlers
       p.mousePressed = () => {
         // Direct click checks: restrict rotation handling within the canvas box
-        if (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height) {
+        if (synapticData && p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height) {
           isDragging = true;
           prevMouseX = p.mouseX;
           prevMouseY = p.mouseY;
@@ -892,8 +887,8 @@ export default function SynapticCanvas({
         if (isDragging) {
           const deltaMousX = p.mouseX - prevMouseX;
           const deltaMousY = p.mouseY - prevMouseY;
-          rotY += deltaMousX * 0.007;
-          rotX -= deltaMousY * 0.007;
+          rotY += deltaMousX * 0.003;
+          rotX -= deltaMousY * 0.003;
           prevMouseX = p.mouseX;
           prevMouseY = p.mouseY;
         }
@@ -947,7 +942,7 @@ export default function SynapticCanvas({
     <div
       ref={containerRef}
       id="canvas-container"
-      className={className || "relative w-full h-[380px] md:h-full min-h-[300px] bg-slate-950/20 backdrop-blur-3xl rounded-r-3xl border-l border-slate-800/20 shadow-inner overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing"}
+      className={className || "relative w-full h-[380px] md:h-full min-h-[300px] flex items-center justify-center cursor-grab active:cursor-grabbing"}
     />
   );
 }

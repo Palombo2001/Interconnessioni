@@ -9,7 +9,7 @@ interface ArtisticGlitchPoetryProps {
 export const ArtisticGlitchPoetry: React.FC<ArtisticGlitchPoetryProps> = ({
   text,
   glitchFactor,
-  fontClass = "font-sans",
+  fontClass = "font-sans text-xs sm:text-sm md:text-base font-medium",
 }) => {
   if (!text) return null;
 
@@ -22,7 +22,7 @@ export const ArtisticGlitchPoetry: React.FC<ArtisticGlitchPoetryProps> = ({
   return (
     <div className="w-full px-2 py-1 flex items-center justify-center">
       <p 
-        className={`${fontClass} text-slate-200 text-xs sm:text-sm md:text-base font-medium leading-relaxed tracking-wide text-center uppercase`}
+        className={`${fontClass} text-slate-100 leading-relaxed tracking-wide text-center`}
         style={{
           textShadow: shadowStyle,
           letterSpacing: "0.06em",
