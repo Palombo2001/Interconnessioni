@@ -55,7 +55,7 @@ export default function App() {
   const [isGameMode, setIsGameMode] = useState(false);
   const [isSharedScan, setIsSharedScan] = useState(false);
   const [projectionFilter, setProjectionFilter] = useState<"raw" | "phosphor" | "cyber">("raw");
-  const poetryFont = "font-serif italic"; // Clean and stable classic serif font
+  const poetryFont = "font-serif italic font-light"; // Clean and stable classic serif font
 
   // Refs for manual overrides when not using Gemini active records
   const [manualAlpha, setManualAlpha] = useState(0.5);
@@ -478,7 +478,7 @@ export default function App() {
           currentY += 40 * scale;
           
           // Poetic text
-          ctx.font = `italic ${14 * scale}px 'Playfair Display', serif`;
+          ctx.font = `italic 300 ${14 * scale}px 'Playfair Display', serif`;
           ctx.fillStyle = "#ec4899"; // pink-500
           
           const words = poeticText.split(' ');
@@ -773,7 +773,7 @@ export default function App() {
                               <ArtisticGlitchPoetry
                                 text={synapticData?.poeticText || "Connessione di coscienza integrata nella matrice."}
                                 glitchFactor={activeGlitch}
-                                fontClass="font-serif italic text-lg"
+                                fontClass="font-serif italic font-light text-lg"
                               />
                             </div>
                           </div>
