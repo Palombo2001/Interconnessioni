@@ -55,7 +55,7 @@ export default function App() {
   const [isGameMode, setIsGameMode] = useState(false);
   const [isSharedScan, setIsSharedScan] = useState(false);
   const [projectionFilter, setProjectionFilter] = useState<"raw" | "phosphor" | "cyber">("raw");
-  const poetryFont = "font-serif italic font-light"; // Clean and stable classic serif font
+  const poetryFont = "font-sans font-light tracking-wide"; // Clean sans font
 
   // Refs for manual overrides when not using Gemini active records
   const [manualAlpha, setManualAlpha] = useState(0.5);
@@ -478,10 +478,11 @@ export default function App() {
           currentY += 40 * scale;
           
           // Poetic text
-          ctx.font = `italic 300 ${14 * scale}px 'Playfair Display', serif`;
+          ctx.font = `300 ${14 * scale}px 'Inter', sans-serif`;
           ctx.fillStyle = "#ec4899"; // pink-500
           
-          const words = poeticText.split(' ');
+          const formattedPoeticText = poeticText.charAt(0).toUpperCase() + poeticText.slice(1).toLowerCase();
+          const words = formattedPoeticText.split(' ');
           let line = '';
           for (let n = 0; n < words.length; n++) {
             const testLine = line + words[n] + ' ';
@@ -771,9 +772,9 @@ export default function App() {
                             </div>
                             <div className="p-5 bg-slate-950/40 rounded-2xl border border-slate-900 relative overflow-hidden">
                               <ArtisticGlitchPoetry
-                                text={synapticData?.poeticText || "Connessione di coscienza integrata nella matrice."}
+                                text={synapticData?.poeticText ? synapticData.poeticText.charAt(0).toUpperCase() + synapticData.poeticText.slice(1).toLowerCase() : "Connessione di coscienza integrata nella matrice."}
                                 glitchFactor={activeGlitch}
-                                fontClass="font-serif italic font-light text-lg"
+                                fontClass="font-sans font-light tracking-wide text-lg"
                               />
                             </div>
                           </div>
@@ -950,7 +951,7 @@ export default function App() {
                           <span className="text-[10px] text-pink-400 uppercase font-black tracking-widest block">SINTESI POETICA</span>
                           <div className="py-2 text-base md:text-lg font-normal text-slate-100 leading-relaxed border-l-2 border-pink-500/50 pl-3">
                             <ArtisticGlitchPoetry
-                              text={synapticData.poeticText}
+                              text={synapticData?.poeticText ? synapticData.poeticText.charAt(0).toUpperCase() + synapticData.poeticText.slice(1).toLowerCase() : ""}
                               glitchFactor={activeGlitch}
                               fontClass={poetryFont}
                             />
